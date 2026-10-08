@@ -27,6 +27,14 @@ HEALTH_LEVELS = (
     "as new",
 )
 HEALTH_NAMES = tuple(level.split(":")[0] for level in HEALTH_LEVELS)
+# The record benchmark is graded on the wrc50 inspection scale, so the record question carries that rubric.
+RECORD_HEALTH_LEVELS = (
+    "1: serious defects and most of the wood lost: replace",
+    "2: serious defects",
+    "3: significant defects",
+    "4: moderate defects",
+    "5: minor defects only",
+)
 
 DEFAULT_POLICY = (
     "Public safety comes first. Poles in high bushfire zones and poles that feed a critical customer "
@@ -108,7 +116,7 @@ def record_questions() -> dict[str, dict[str, Any]]:
                 "shell_thickness and groundline are measured remaining wood: values near 1.0 are as new, "
                 "lower values mean more wood has been lost."
             ),
-            "criteria": list(HEALTH_LEVELS),
+            "criteria": list(RECORD_HEALTH_LEVELS),
         }
     }
 
