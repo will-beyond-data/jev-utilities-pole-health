@@ -821,7 +821,7 @@ function showStage(it, dur) {
   stage.style.setProperty('--anim', a + 'ms');
   if (a) { void img.offsetWidth; img.classList.add('slide'); }
   const src = it.custom ? null : (it.p && it.p.photo_source);
-  const credit = it.custom ? 'Your photo, processed here and not stored' : (src && src.credit ? clean(src.credit) : 'PD-Defect, CC BY 4.0');
+  const credit = it.custom ? 'Your photo. Sent to the model for this one decision, not saved by this demo' : (src && src.credit ? clean(src.credit) : 'PD-Defect, CC BY 4.0');
   el$.capLeft.innerHTML = `<code>${esc(it.id)}</code> &middot; ${esc(S.meta.town || 'Toowoomba, QLD')}`;
   el$.capRight.innerHTML = `${it.custom ? '' : 'Photo: '}${credit}`;
   el$.scan.style.top = '-24%';
