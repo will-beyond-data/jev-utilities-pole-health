@@ -1,20 +1,22 @@
 # Handoff: status, decisions, research, next steps
 
-Last updated 2026-10-08 by Will's local session (local setup done, first Space answers, Rejected lean
-photos excluded). The first version was built by a cloud session.
+Last updated 2026-10-08 by Will's local session: the measured RunPod run is done, the pod is
+terminated, and a first demo video exists. The first version was built by a cloud session.
 
 ## Status at a glance
 
 | Piece | State |
 |---|---|
-| Python pipeline (`src/polehealth`) | Built. 91 tests pass, ruff clean. Verified end to end with the mock backend only. |
+| Python pipeline (`src/polehealth`) | Built. 91 tests pass, ruff clean. Run end to end against the real model on an A100. |
 | Data sources | All six fetch and work: PD-Defect lean, crossarm, vegetation; Kaggle wrc50 and wrc45 (no login needed); OSM Toowoomba poles (extract committed). |
 | Register | 1,191 Toowoomba poles, deterministic (seed 7). Rebuild with `polehealth build-register`. |
-| Demo page (`demo/`) | Live inspection (default tab, the video hero shot, with Explain / Real speed / Ramp pacing, `?autoplay=1&mode=ramp`, keyboard shortcuts), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Screenshot-checked in Chromium at 1920x1080 and 1366x768, light and dark, on sample data only. Never run against real pipeline output yet. |
-| Local server (`polehealth serve`) | Built and tested with the mock backend. |
-| GPU runbook (`scripts/gpu/`) | Written for RunPod. `setup.sh` is syntax-checked only; it has never run on a GPU. |
-| Real model output | First 8 answers via the Space on 2026-10-08 (`runs/20261008T113737Z-space`, gitignored): 3 of 7 lean photos right, every miss was a Rejected photo or a slight lean. Then the free ZeroGPU quota ran out. No RunPod spend yet (billing checked: USD 0). |
-| README | Drafted. Results section deliberately empty until a real run exists. Not yet brand-reviewed. |
+| Demo page (`demo/`) | Live inspection (hero view, Explain / Real speed / Ramp pacing, `?autoplay=1&mode=ramp`), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Checked on real data in Chromium at 1920x1080. |
+| Local server (`polehealth serve`) | Built and tested with the mock backend. Not yet used against the real model. |
+| GPU runbook (`scripts/gpu/`) | Proven on RunPod, 2026-10-08: setup took about 10 minutes, model ready 90 s after start. |
+| Real model output | Recorded run `runs/20261008T120934Z-http` (A100-SXM4-80GB, RunPod Secure Cloud, USD 1.59/hr): lean 82.9% (n 474), crossarm 68.1% (n 257), vegetation 70.2% (n 457), record health 69.0% (n 500); median model time 547 ms per lean photo pass, mean 1,096 ms per demo pole (photo read + decision); USD 0.48 per 1,000 poles. `demo/data/` holds 400 real decisions (130 to the engineer queue). Both are gitignored or uncommitted, see next steps. |
+| Spend | One pod, 42 minutes at USD 1.59/hr, about USD 1.11 (AUD 1.70) plus disk. Terminated; no pods left. |
+| Demo video | `runs/20261008T120934Z-http/pole-health-demo.mp4` (78 s, 1920x1080), recorded headless from the real data with a scripted Chromium screencast. Not committed. |
+| README | Drafted. Results section still empty. Not yet brand-reviewed. |
 
 ## Decisions already made (do not re-ask)
 
@@ -38,38 +40,20 @@ photos excluded). The first version was built by a cloud session.
 
 ## Next steps, in order
 
-1. **Local setup.** `uv sync --extra space`, `uv run pytest -q`, `uv run polehealth fetch`,
-   `uv run polehealth build-register`.
-2. **First real answers, free, via the Hugging Face Space.** With `HF_TOKEN` set:
-   `uv run polehealth ask --backend space --image <a PD-Defect Leaned photo from data/raw>` then
-   `uv run polehealth eval --backend space --task all --limit 10`. The anonymous Space quota was
-   exhausted from the cloud container, so a token is required. Free accounts get limited ZeroGPU
-   minutes per day.
-   **2026-10-08 result:** a free HF account ran out of ZeroGPU quota after 8 calls, too few to judge the
-   wording. Remaining crossarm, vegetation and record checks were not scored. Start a fresh run rather
-   than resuming that one (it holds 3 Rejected rows, now excluded), or do the wording check as the first
-   part of the RunPod session (Will to decide).
-3. **Check the questions before paying for GPU time.** Look at the Space answers. If accuracy on
-   lean, crossarm or vegetation is poor, iterate on the wording in `src/polehealth/questions.py`
-   (the only place prompts live) against the Space, which is free. Ignore Space latency.
-4. **Measured run on RunPod** (follow `scripts/gpu/RUNBOOK.md`): rent the pod, `bash
-   scripts/gpu/setup.sh` (downloads about 54 GB, starts the official Maincode server, runs a smoke
-   test), clone this repo on the pod, run `polehealth eval --backend http --task all` and
-   `polehealth demo-data --backend http --inspect 300` on the pod itself, then `polehealth cost`.
-   Copy `runs/` and `demo/data/` back, then **stop and terminate the pod**. Expected compute is a
-   few AUD; the top-up is the bigger cost.
-   - If `setup.sh` fails at model load, that is the NVIDIA risk (Maincode only validated on AMD
-     MI355X). Stop the pod before debugging. Fallback: run the eval through the Space and present
-     accuracy only, with no speed claims.
-5. **Film the demo** while you have real data: `uv run polehealth serve`, open
-   `http://127.0.0.1:8000/?autoplay=1&mode=ramp`, screen-record at 1920x1080. For the live "Try a
-   photo" moment, keep the pod up and tunnel the server (RUNBOOK has the SSH tunnel steps).
-6. **Fill the README results** from `runs/<dir>/eval_summary.json` only, commit `demo/data/` (keep
+1. Done 2026-10-08: local setup, first Space answers (the free ZeroGPU quota ran out after 8 calls),
+   measured RunPod run, demo data, first demo video. Notes from that run:
+   - `torch==2.14.0` has no cu128 build, so `setup.sh` now defaults to cu126.
+   - The record question now uses the wrc50 inspection scale (5 = minor defects); with the shared
+     photo scale ("as new" at the top) every answer landed one level low.
+   - To re-run: same runbook. The weights download took about 2 minutes on RunPod.
+2. **Will reviews the video** and the demo on real data: `uv run python -m http.server 8000 -d demo`,
+   then open `http://127.0.0.1:8000/?autoplay=1&mode=ramp`.
+3. **Fill the README results** from `runs/<dir>/eval_summary.json` only, commit `demo/data/` (keep
    the photo subset small; at max edge 960 each photo is about 130 KB), then brand-review README
    and the demo copy with `beyond-data-brand-voice`.
-7. **Before going public:** resolve the Kaggle licence question (below), get Will's approval, flip
+4. **Before going public:** resolve the Kaggle licence question (below), get Will's approval, flip
    the repo to public.
-8. **Content:** carousel and LinkedIn brief go through Will's content-engine repo (Beyond Data
+5. **Content:** carousel and LinkedIn brief go through Will's content-engine repo (Beyond Data
    brand), drafts only. Will posts.
 
 ## Open questions and risks
