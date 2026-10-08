@@ -18,3 +18,6 @@ __pycache__/
 *.egg-info/
 dist/
 .DS_Store
+
+# local secrets
+.env
