@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pole health triage with Matilda Jev</title>
+<meta name="description" content="Beyond Data demo: Maincode's Matilda Jev, an open Australian decision model, triages electricity poles across Toowoomba, QLD.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="wordmark">Beyond <i>Data</i></span>
+      <span class="sep" aria-hidden="true"></span>
+      <h1>Pole health triage with Matilda Jev</h1>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button class="tab" role="tab" id="tab-live" data-view="live" aria-selected="true">Live inspection</button>
+      <button class="tab" role="tab" id="tab-map" data-view="map" aria-selected="false">Map</button>
+      <button class="tab" role="tab" id="tab-flip" data-view="flip" aria-selected="false">Flip</button>
+      <button class="tab" role="tab" id="tab-queue" data-view="queue" aria-selected="false">Engineer queue <span class="badge num" id="queueBadge" hidden>0</span></button>
+      <button class="tab" role="tab" id="tab-accuracy" data-view="accuracy" aria-selected="false">Accuracy</button>
+    </nav>
+  </header>
+
+  <div id="notice" class="notice" role="status" hidden></div>
+
+  <main>
+    <!-- Live inspection -->
+    <section id="view-live" class="view active" role="tabpanel" aria-labelledby="tab-live">
+      <div class="toolbar live-controls">
+        <div class="grp">
+          <button class="btn primary" id="lvPlay" type="button"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z"/></svg><span>Play</span></button>
+          <button class="btn" id="lvNext" type="button" title="Next pole (right arrow)">Next</button>
+          <button class="btn" id="lvRestart" type="button" title="Restart (R)">Restart</button>
+        </div>
+        <div class="grp" role="radiogroup" aria-label="Pacing">
+          <span class="label">Pacing</span>
+          <div class="seg" id="lvMode">
+            <button type="button" role="radio" data-mode="explain" aria-checked="true" title="Slowed down, about 5 seconds per pole (1)">Explain</button>
+            <button type="button" role="radio" data-mode="real" aria-checked="false" title="Phases last as long as the measured model time (2)">Real speed</button>
+            <button type="button" role="radio" data-mode="ramp" aria-checked="false" title="Three slow poles, then accelerate to real speed (3)">Ramp</button>
+          </div>
+        </div>
+        <div class="lv-counters" aria-label="Live counters">
+          <span><b class="num" id="lvDecided">0</b> / <span class="num" id="lvTotal">0</span> poles</span>
+          <span>Median <b class="num" id="lvMedian">-</b> ms</span>
+          <span><b class="num" id="lvRate">-</b> poles per second</span>
+        </div>
+        <button class="btn" id="tryBtn" type="button" hidden aria-expanded="false" aria-controls="tryPanel">Try a photo</button>
+        <span class="keys">Space play, right arrow next, R restart, 1 2 3 pacing</span>
+        <div class="try-panel" id="tryPanel" hidden>
+          <div class="drop" id="drop" tabindex="0" role="button" aria-label="Drop a pole photo here or choose a file">
+            <b>Drop a pole photo here</b><span>or choose a file</span>
+            <input type="file" id="tryFile" accept="image/*">
+          </div>
+          <label class="try-rec">Pair with a record
+            <select id="tryRecord"></select>
+          </label>
+          <p class="try-msg" id="tryMsg" role="status"></p>
+        </div>
+      </div>
+
+      <div class="live-grid">
+        <div class="stage-col">
+          <div class="stepper" id="stepper">
+            <ol>
+              <li data-step="0">Photo</li><li data-step="1">Reading photo</li><li data-step="2">Asset record</li><li data-step="3">Decision</li>
+            </ol>
+            <span class="timer num" id="lvTimer"></span>
+          </div>
+          <div class="stage" id="stage">
+            <img id="stageImg" alt="">
+            <div class="ph"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="28" rx="4"/><circle cx="18" cy="21" r="3.5"/><path d="M8 36l11-10 7 6 6-5 8 8"/></svg><span>Photo not available in this build</span></div>
+            <div class="scan" id="scan" aria-hidden="true"></div>
+            <div class="mode-chip" id="modeChip" hidden></div>
+            <div class="stage-hint" id="stageHint"><b>Press Play to start the inspection</b><span>or press Space</span></div>
+          </div>
+          <div class="stage-caption"><span id="capLeft"></span><span id="capRight"></span></div>
+        </div>
+        <div class="out-col" id="outCol">
+          <article class="card out-card" id="cardV1"></article>
+          <article class="card out-card" id="cardRec"></article>
+          <article class="card out-card" id="cardDec"></article>
+        </div>
+      </div>
+
+      <div class="live-bottom">
+        <div class="mini"><div id="miniMap" aria-label="Location of the pole being inspected"></div></div>
+        <div class="film" id="film" aria-hidden="true"><div class="film-track" id="filmTrack"></div></div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section id="view-map" class="view" role="tabpanel" aria-labelledby="tab-map">
+      <div class="toolbar">
+        <div class="grp">
+          <button class="btn primary" id="runBtn" type="button"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z"/></svg><span>Run inspection</span></button>
+          <button class="btn" id="pauseBtn" type="button" disabled><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z"/></svg>Pause</button>
+          <button class="btn" id="resetBtn" type="button" disabled>Reset</button>
+          <button class="btn" id="allBtn" type="button" title="Skip the replay and show every recorded decision">Show all results</button>
+        </div>
+        <div class="grp" role="radiogroup" aria-label="Replay speed">
+          <span class="label">Speed</span>
+          <div class="seg" id="speedSeg">
+            <button type="button" role="radio" data-speed="1" aria-checked="true" title="Each decision waits for its recorded model time">1x real time</button>
+            <button type="button" role="radio" data-speed="10" aria-checked="false" title="Recorded model times, ten times faster">10x</button>
+            <button type="button" role="radio" data-speed="video" aria-checked="false" title="Fixed 40 decisions per second, for video capture">Video, 40 per second</button>
+          </div>
+        </div>
+        <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+      </div>
+
+      <div class="stats" aria-label="Live counters">
+        <div class="stat"><div class="k">Poles decided</div><div class="v num"><span id="sDecided">0</span><small>/ <span id="sTotal">0</span></small></div><div class="s" id="sOf"></div></div>
+        <div class="stat"><div class="k">Median model time</div><div class="v num"><span id="sMedian">-</span><small>ms</small></div><div class="s">per pole: photo read + decision</div></div>
+        <div class="stat"><div class="k">Decisions per second</div><div class="v num"><span id="sRate">-</span></div><div class="s" id="sRateNote">live</div></div>
+        <div class="stat"><div class="k">Engineer queue</div><div class="v num"><span id="sQueue">0</span></div><div class="s">low confidence or reinspect</div></div>
+        <div class="legend" id="legend" aria-label="Legend and action tallies"></div>
+      </div>
+
+      <div class="map-layout">
+        <div class="map-wrap">
+          <div id="map" aria-label="Map of poles in Toowoomba"></div>
+          <div class="map-hint" id="mapHint">Click a pole to see why</div>
+        </div>
+        <aside class="panel" id="panel" aria-live="polite"></aside>
+      </div>
+    </section>
+
+    <!-- Flip -->
+    <section id="view-flip" class="view" role="tabpanel" aria-labelledby="tab-flip">
+      <div class="page" id="flipPage"></div>
+    </section>
+
+    <!-- Queue -->
+    <section id="view-queue" class="view" role="tabpanel" aria-labelledby="tab-queue">
+      <div class="page" id="queuePage"></div>
+    </section>
+
+    <!-- Accuracy -->
+    <section id="view-accuracy" class="view" role="tabpanel" aria-labelledby="tab-accuracy">
+      <div class="page" id="accuracyPage"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p id="credits"></p>
+    <p class="honesty"><b>Honesty note.</b> Pole locations are real (OpenStreetMap). Photos are real field photos from India (PD-Defect). Inspection histories are real Canadian timber pole records. The pairing between them is synthetic, for demonstration.</p>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

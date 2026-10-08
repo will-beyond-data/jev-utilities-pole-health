@@ -1,0 +1,20 @@
+# downloaded source data (see DATA_SOURCES.md). The OSM pole extract is committed (ODbL) so a fresh
+# checkout does not depend on the flaky Overpass servers.
+data/raw/*
+!data/raw/osm_toowoomba.json
+
+# rebuilt by `polehealth build-register`; it embeds Kaggle-derived histories whose licence is not stated
+data/register.json
+
+# eval runs are local artefacts; commit only the ones you mean to publish
+runs/*
+!runs/.gitkeep
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+.DS_Store

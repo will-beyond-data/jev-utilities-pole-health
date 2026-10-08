@@ -1,0 +1,277 @@
+{
+ "backend": "mock",
+ "model": "matilda-jev-v1",
+ "recorded_at": "2026-10-08T00:00:00Z",
+ "photo": "photos/sample_flip.svg",
+ "photo_source": {
+  "dataset": "sample",
+  "label": "Leaned",
+  "credit": "Sample illustration (mock data), not a field photo"
+ },
+ "sides": [
+  {
+   "label": "Younger pole, low bushfire zone, maintained 2 years ago",
+   "record": {
+    "material": "timber",
+    "age_years": 23,
+    "install_year": 2003,
+    "inspections": [
+     {
+      "year": 2006,
+      "shell_thickness": [
+       0.93,
+       0.93,
+       0.97
+      ],
+      "groundline": 0.62,
+      "surface": "No Defects",
+      "woodpecker_holes": false
+     },
+     {
+      "year": 2016,
+      "shell_thickness": [
+       0.91,
+       0.92,
+       0.88
+      ],
+      "groundline": 0.65,
+      "surface": "No Defects",
+      "woodpecker_holes": false
+     },
+     {
+      "year": 2026,
+      "shell_thickness": [
+       0.9,
+       0.84,
+       0.91
+      ],
+      "groundline": 0.59,
+      "surface": "No Defects",
+      "woodpecker_holes": false,
+      "health_index": 4
+     }
+    ],
+    "shell_thickness_change_10y": -0.02,
+    "transformer": "three_phase",
+    "last_maintained_year": 2024,
+    "years_since_maintenance": 2,
+    "bushfire_zone": "low",
+    "customers_served": 38,
+    "critical_customer": false,
+    "critical_customer_type": null,
+    "source_history_id": "sample-flip-a"
+   },
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.1846,
+       "leaning": 0.6447,
+       "cannot_assess": 0.1708
+      },
+      "confidence": 0.6447
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6451,
+       "tilted": 0.1759,
+       "not_visible": 0.179
+      },
+      "confidence": 0.6451
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7217,
+       "encroaching": 0.1176,
+       "not_visible": 0.1607
+      },
+      "confidence": 0.7217
+     },
+     "health": {
+      "type": "score",
+      "score": 2.953,
+      "probabilities": {
+       "0": 0.0012,
+       "1": 0.0323,
+       "2": 0.2365,
+       "3": 0.4723,
+       "4": 0.2577
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4723
+     }
+    },
+    "latency_ms": 69.1,
+    "model_ms": 48.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0047,
+       "maintain": 0.0881,
+       "defer": 0.7784,
+       "reinspect": 0.1288
+      },
+      "confidence": 0.7784
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.4229
+     }
+    },
+    "latency_ms": 50.1,
+    "model_ms": 39.3
+   },
+   "action": "defer",
+   "confidence": 0.7784,
+   "route": "auto"
+  },
+  {
+   "label": "Older pole, high bushfire zone, aged care customer",
+   "record": {
+    "material": "timber",
+    "age_years": 66,
+    "install_year": 1960,
+    "inspections": [
+     {
+      "year": 2006,
+      "shell_thickness": [
+       0.83,
+       0.82,
+       0.87
+      ],
+      "groundline": 0.59,
+      "surface": "No Defects",
+      "woodpecker_holes": true
+     },
+     {
+      "year": 2016,
+      "shell_thickness": [
+       0.54,
+       0.53,
+       0.54
+      ],
+      "groundline": 0.38,
+      "surface": "Minor Defects",
+      "woodpecker_holes": false
+     },
+     {
+      "year": 2026,
+      "shell_thickness": [
+       0.39,
+       0.34,
+       0.4
+      ],
+      "groundline": 0.31,
+      "surface": "Serious Defects",
+      "woodpecker_holes": false,
+      "health_index": 1
+     }
+    ],
+    "shell_thickness_change_10y": -0.3,
+    "transformer": "single_phase",
+    "last_maintained_year": null,
+    "years_since_maintenance": null,
+    "bushfire_zone": "high",
+    "customers_served": 260,
+    "critical_customer": true,
+    "critical_customer_type": "aged care facility",
+    "source_history_id": "sample-flip-b"
+   },
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.1435,
+       "leaning": 0.7138,
+       "cannot_assess": 0.1427
+      },
+      "confidence": 0.7138
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7609,
+       "tilted": 0.0939,
+       "not_visible": 0.1452
+      },
+      "confidence": 0.7609
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7399,
+       "encroaching": 0.1392,
+       "not_visible": 0.1209
+      },
+      "confidence": 0.7399
+     },
+     "health": {
+      "type": "score",
+      "score": 0.954,
+      "probabilities": {
+       "0": 0.1962,
+       "1": 0.6554,
+       "2": 0.1463,
+       "3": 0.0022,
+       "4": 0.0
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6554
+     }
+    },
+    "latency_ms": 58.6,
+    "model_ms": 51.5
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.8007,
+       "maintain": 0.0281,
+       "defer": 0.001,
+       "reinspect": 0.1702
+      },
+      "confidence": 0.8007
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 50.6,
+    "model_ms": 41.4
+   },
+   "action": "replace",
+   "confidence": 0.8007,
+   "route": "auto"
+  }
+ ]
+}

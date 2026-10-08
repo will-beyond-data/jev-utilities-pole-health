@@ -1,0 +1,3249 @@
+{
+ "backend": "mock",
+ "model": "matilda-jev-v1",
+ "hardware": "none (mock backend)",
+ "recorded_at": "2026-10-08T00:00:00Z",
+ "engineer_threshold": 0.6,
+ "decisions": {
+  "osm-110907": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8401,
+       "leaning": 0.0919,
+       "cannot_assess": 0.068
+      },
+      "confidence": 0.8401
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0935,
+       "tilted": 0.7854,
+       "not_visible": 0.121
+      },
+      "confidence": 0.7854
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8141,
+       "encroaching": 0.0959,
+       "not_visible": 0.09
+      },
+      "confidence": 0.8141
+     },
+     "health": {
+      "type": "score",
+      "score": 3.087,
+      "probabilities": {
+       "0": 0.0008,
+       "1": 0.0227,
+       "2": 0.19,
+       "3": 0.4612,
+       "4": 0.3253
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4612
+     }
+    },
+    "latency_ms": 49.0,
+    "model_ms": 34.1
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.005,
+       "maintain": 0.0865,
+       "defer": 0.8089,
+       "reinspect": 0.0995
+      },
+      "confidence": 0.8089
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.378
+     }
+    },
+    "latency_ms": 56.7,
+    "model_ms": 37.0
+   },
+   "action": "defer",
+   "confidence": 0.8089,
+   "route": "auto"
+  },
+  "osm-113183": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7454,
+       "leaning": 0.1602,
+       "cannot_assess": 0.0944
+      },
+      "confidence": 0.7454
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1717,
+       "tilted": 0.7315,
+       "not_visible": 0.0968
+      },
+      "confidence": 0.7315
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1521,
+       "encroaching": 0.6944,
+       "not_visible": 0.1535
+      },
+      "confidence": 0.6944
+     },
+     "health": {
+      "type": "score",
+      "score": 2.932,
+      "probabilities": {
+       "0": 0.0006,
+       "1": 0.0264,
+       "2": 0.243,
+       "3": 0.5001,
+       "4": 0.2299
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5001
+     }
+    },
+    "latency_ms": 65.0,
+    "model_ms": 55.0
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0275,
+       "maintain": 0.5804,
+       "defer": 0.265,
+       "reinspect": 0.1271
+      },
+      "confidence": 0.5804
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5729
+     }
+    },
+    "latency_ms": 45.6,
+    "model_ms": 34.2
+   },
+   "action": "maintain",
+   "confidence": 0.5804,
+   "route": "engineer"
+  },
+  "osm-119676": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8147,
+       "leaning": 0.0746,
+       "cannot_assess": 0.1107
+      },
+      "confidence": 0.8147
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1275,
+       "tilted": 0.7677,
+       "not_visible": 0.1048
+      },
+      "confidence": 0.7677
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.07,
+       "encroaching": 0.8064,
+       "not_visible": 0.1236
+      },
+      "confidence": 0.8064
+     },
+     "health": {
+      "type": "score",
+      "score": 1.815,
+      "probabilities": {
+       "0": 0.0305,
+       "1": 0.2961,
+       "2": 0.5096,
+       "3": 0.1554,
+       "4": 0.0084
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5096
+     }
+    },
+    "latency_ms": 75.8,
+    "model_ms": 58.0
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0264,
+       "maintain": 0.8785,
+       "defer": 0.0288,
+       "reinspect": 0.0663
+      },
+      "confidence": 0.8785
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.6711
+     }
+    },
+    "latency_ms": 52.6,
+    "model_ms": 36.6
+   },
+   "action": "maintain",
+   "confidence": 0.8785,
+   "route": "auto"
+  },
+  "osm-146106": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6606,
+       "leaning": 0.1601,
+       "cannot_assess": 0.1793
+      },
+      "confidence": 0.6606
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1634,
+       "tilted": 0.6934,
+       "not_visible": 0.1432
+      },
+      "confidence": 0.6934
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6412,
+       "encroaching": 0.1693,
+       "not_visible": 0.1894
+      },
+      "confidence": 0.6412
+     },
+     "health": {
+      "type": "score",
+      "score": 1.714,
+      "probabilities": {
+       "0": 0.0093,
+       "1": 0.327,
+       "2": 0.6047,
+       "3": 0.0588,
+       "4": 0.0003
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6047
+     }
+    },
+    "latency_ms": 55.5,
+    "model_ms": 38.5
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0508,
+       "maintain": 0.7705,
+       "defer": 0.091,
+       "reinspect": 0.0877
+      },
+      "confidence": 0.7705
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.6079
+     }
+    },
+    "latency_ms": 70.0,
+    "model_ms": 57.3
+   },
+   "action": "maintain",
+   "confidence": 0.7705,
+   "route": "auto"
+  },
+  "osm-166886": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.1039,
+       "leaning": 0.8339,
+       "cannot_assess": 0.0622
+      },
+      "confidence": 0.8339
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0766,
+       "tilted": 0.8041,
+       "not_visible": 0.1193
+      },
+      "confidence": 0.8041
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.0715,
+       "encroaching": 0.8361,
+       "not_visible": 0.0924
+      },
+      "confidence": 0.8361
+     },
+     "health": {
+      "type": "score",
+      "score": 0.742,
+      "probabilities": {
+       "0": 0.3567,
+       "1": 0.5461,
+       "2": 0.0953,
+       "3": 0.0019,
+       "4": 0.0
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5461
+     }
+    },
+    "latency_ms": 55.2,
+    "model_ms": 36.7
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.3746,
+       "maintain": 0.2224,
+       "defer": 0.1321,
+       "reinspect": 0.2709
+      },
+      "confidence": 0.3746
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 51.8,
+    "model_ms": 35.4
+   },
+   "action": "replace",
+   "confidence": 0.3746,
+   "route": "engineer"
+  },
+  "osm-170407": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7181,
+       "leaning": 0.1858,
+       "cannot_assess": 0.096
+      },
+      "confidence": 0.7181
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1788,
+       "tilted": 0.7296,
+       "not_visible": 0.0916
+      },
+      "confidence": 0.7296
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.0996,
+       "encroaching": 0.7341,
+       "not_visible": 0.1664
+      },
+      "confidence": 0.7341
+     },
+     "health": {
+      "type": "score",
+      "score": 2.965,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0083,
+       "2": 0.2085,
+       "3": 0.593,
+       "4": 0.1903
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.593
+     }
+    },
+    "latency_ms": 54.1,
+    "model_ms": 43.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.003,
+       "maintain": 0.0547,
+       "defer": 0.875,
+       "reinspect": 0.0673
+      },
+      "confidence": 0.875
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.4107
+     }
+    },
+    "latency_ms": 53.6,
+    "model_ms": 45.3
+   },
+   "action": "defer",
+   "confidence": 0.875,
+   "route": "auto"
+  },
+  "osm-201745": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7134,
+       "leaning": 0.1406,
+       "cannot_assess": 0.146
+      },
+      "confidence": 0.7134
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.2324,
+       "tilted": 0.5989,
+       "not_visible": 0.1687
+      },
+      "confidence": 0.5989
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.2213,
+       "encroaching": 0.6208,
+       "not_visible": 0.1578
+      },
+      "confidence": 0.6208
+     },
+     "health": {
+      "type": "score",
+      "score": 0.994,
+      "probabilities": {
+       "0": 0.2731,
+       "1": 0.4857,
+       "2": 0.2164,
+       "3": 0.0241,
+       "4": 0.0007
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4857
+     }
+    },
+    "latency_ms": 67.0,
+    "model_ms": 47.8
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.5642,
+       "maintain": 0.2606,
+       "defer": 0.0075,
+       "reinspect": 0.1678
+      },
+      "confidence": 0.5642
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.9164
+     }
+    },
+    "latency_ms": 57.3,
+    "model_ms": 48.6
+   },
+   "action": "replace",
+   "confidence": 0.5642,
+   "route": "engineer"
+  },
+  "osm-219382": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "cannot_assess",
+      "probabilities": {
+       "straight": 0.1736,
+       "leaning": 0.2346,
+       "cannot_assess": 0.5917
+      },
+      "confidence": 0.5917
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1482,
+       "tilted": 0.6232,
+       "not_visible": 0.2286
+      },
+      "confidence": 0.6232
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6774,
+       "encroaching": 0.1464,
+       "not_visible": 0.1762
+      },
+      "confidence": 0.6774
+     },
+     "health": {
+      "type": "score",
+      "score": 1.072,
+      "probabilities": {
+       "0": 0.1817,
+       "1": 0.576,
+       "2": 0.2306,
+       "3": 0.0117,
+       "4": 0.0001
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.576
+     }
+    },
+    "latency_ms": 63.6,
+    "model_ms": 52.1
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.8114,
+       "maintain": 0.0262,
+       "defer": 0.0008,
+       "reinspect": 0.1616
+      },
+      "confidence": 0.8114
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 53.3,
+    "model_ms": 33.5
+   },
+   "action": "replace",
+   "confidence": 0.8114,
+   "route": "engineer"
+  },
+  "osm-258218": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6437,
+       "leaning": 0.1397,
+       "cannot_assess": 0.2166
+      },
+      "confidence": 0.6437
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1689,
+       "tilted": 0.6158,
+       "not_visible": 0.2152
+      },
+      "confidence": 0.6158
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1901,
+       "encroaching": 0.6662,
+       "not_visible": 0.1437
+      },
+      "confidence": 0.6662
+     },
+     "health": {
+      "type": "score",
+      "score": 2.04,
+      "probabilities": {
+       "0": 0.0182,
+       "1": 0.2127,
+       "2": 0.5038,
+       "3": 0.2418,
+       "4": 0.0235
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5038
+     }
+    },
+    "latency_ms": 60.7,
+    "model_ms": 42.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.5963,
+       "maintain": 0.2484,
+       "defer": 0.0201,
+       "reinspect": 0.1352
+      },
+      "confidence": 0.5963
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.951
+     }
+    },
+    "latency_ms": 49.0,
+    "model_ms": 33.1
+   },
+   "action": "replace",
+   "confidence": 0.5963,
+   "route": "engineer"
+  },
+  "osm-266202": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7237,
+       "leaning": 0.1378,
+       "cannot_assess": 0.1385
+      },
+      "confidence": 0.7237
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.154,
+       "tilted": 0.7109,
+       "not_visible": 0.1351
+      },
+      "confidence": 0.7109
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7831,
+       "encroaching": 0.0934,
+       "not_visible": 0.1235
+      },
+      "confidence": 0.7831
+     },
+     "health": {
+      "type": "score",
+      "score": 0.779,
+      "probabilities": {
+       "0": 0.2827,
+       "1": 0.6555,
+       "2": 0.0615,
+       "3": 0.0002,
+       "4": 0.0
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6555
+     }
+    },
+    "latency_ms": 61.7,
+    "model_ms": 45.3
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.7716,
+       "maintain": 0.0537,
+       "defer": 0.0037,
+       "reinspect": 0.1709
+      },
+      "confidence": 0.7716
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 62.1,
+    "model_ms": 52.6
+   },
+   "action": "replace",
+   "confidence": 0.7716,
+   "route": "auto"
+  },
+  "osm-270052": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.802,
+       "leaning": 0.1072,
+       "cannot_assess": 0.0908
+      },
+      "confidence": 0.802
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7627,
+       "tilted": 0.1067,
+       "not_visible": 0.1307
+      },
+      "confidence": 0.7627
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8026,
+       "encroaching": 0.1087,
+       "not_visible": 0.0886
+      },
+      "confidence": 0.8026
+     },
+     "health": {
+      "type": "score",
+      "score": 1.863,
+      "probabilities": {
+       "0": 0.0099,
+       "1": 0.2542,
+       "2": 0.6015,
+       "3": 0.1317,
+       "4": 0.0027
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6015
+     }
+    },
+    "latency_ms": 53.6,
+    "model_ms": 39.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0368,
+       "maintain": 0.8473,
+       "defer": 0.0237,
+       "reinspect": 0.0922
+      },
+      "confidence": 0.8473
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.7339
+     }
+    },
+    "latency_ms": 62.7,
+    "model_ms": 49.5
+   },
+   "action": "maintain",
+   "confidence": 0.8473,
+   "route": "auto"
+  },
+  "osm-284546": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6421,
+       "leaning": 0.1153,
+       "cannot_assess": 0.2426
+      },
+      "confidence": 0.6421
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6605,
+       "tilted": 0.1937,
+       "not_visible": 0.1458
+      },
+      "confidence": 0.6605
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6211,
+       "encroaching": 0.2359,
+       "not_visible": 0.143
+      },
+      "confidence": 0.6211
+     },
+     "health": {
+      "type": "score",
+      "score": 2.1,
+      "probabilities": {
+       "0": 0.0214,
+       "1": 0.202,
+       "2": 0.4699,
+       "3": 0.2689,
+       "4": 0.0379
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4699
+     }
+    },
+    "latency_ms": 72.9,
+    "model_ms": 57.2
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.1512,
+       "maintain": 0.6676,
+       "defer": 0.0307,
+       "reinspect": 0.1505
+      },
+      "confidence": 0.6676
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.7114
+     }
+    },
+    "latency_ms": 64.1,
+    "model_ms": 56.4
+   },
+   "action": "maintain",
+   "confidence": 0.6676,
+   "route": "auto"
+  },
+  "osm-302045": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8633,
+       "leaning": 0.0649,
+       "cannot_assess": 0.0718
+      },
+      "confidence": 0.8633
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8139,
+       "tilted": 0.067,
+       "not_visible": 0.1191
+      },
+      "confidence": 0.8139
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.0917,
+       "encroaching": 0.8336,
+       "not_visible": 0.0747
+      },
+      "confidence": 0.8336
+     },
+     "health": {
+      "type": "score",
+      "score": 2.254,
+      "probabilities": {
+       "0": 0.0002,
+       "1": 0.0573,
+       "2": 0.6371,
+       "3": 0.2994,
+       "4": 0.006
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6371
+     }
+    },
+    "latency_ms": 70.9,
+    "model_ms": 54.2
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0599,
+       "maintain": 0.7325,
+       "defer": 0.0786,
+       "reinspect": 0.1291
+      },
+      "confidence": 0.7325
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.7098
+     }
+    },
+    "latency_ms": 75.1,
+    "model_ms": 55.4
+   },
+   "action": "maintain",
+   "confidence": 0.7325,
+   "route": "auto"
+  },
+  "osm-315134": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.701,
+       "leaning": 0.1867,
+       "cannot_assess": 0.1123
+      },
+      "confidence": 0.701
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1602,
+       "tilted": 0.6991,
+       "not_visible": 0.1408
+      },
+      "confidence": 0.6991
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.191,
+       "encroaching": 0.6747,
+       "not_visible": 0.1342
+      },
+      "confidence": 0.6747
+     },
+     "health": {
+      "type": "score",
+      "score": 2.874,
+      "probabilities": {
+       "0": 0.0015,
+       "1": 0.0387,
+       "2": 0.2653,
+       "3": 0.474,
+       "4": 0.2206
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.474
+     }
+    },
+    "latency_ms": 69.0,
+    "model_ms": 52.1
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.1424,
+       "maintain": 0.2817,
+       "defer": 0.3342,
+       "reinspect": 0.2416
+      },
+      "confidence": 0.3342
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5569
+     }
+    },
+    "latency_ms": 60.9,
+    "model_ms": 47.9
+   },
+   "action": "defer",
+   "confidence": 0.3342,
+   "route": "engineer"
+  },
+  "osm-317783": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.0964,
+       "leaning": 0.7097,
+       "cannot_assess": 0.1938
+      },
+      "confidence": 0.7097
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0919,
+       "tilted": 0.7259,
+       "not_visible": 0.1822
+      },
+      "confidence": 0.7259
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7067,
+       "encroaching": 0.1308,
+       "not_visible": 0.1625
+      },
+      "confidence": 0.7067
+     },
+     "health": {
+      "type": "score",
+      "score": 1.305,
+      "probabilities": {
+       "0": 0.1402,
+       "1": 0.47,
+       "2": 0.3367,
+       "3": 0.0515,
+       "4": 0.0017
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.47
+     }
+    },
+    "latency_ms": 63.8,
+    "model_ms": 54.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.8084,
+       "maintain": 0.031,
+       "defer": 0.0012,
+       "reinspect": 0.1594
+      },
+      "confidence": 0.8084
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 61.7,
+    "model_ms": 53.2
+   },
+   "action": "replace",
+   "confidence": 0.8084,
+   "route": "auto"
+  },
+  "osm-384146": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6167,
+       "leaning": 0.25,
+       "cannot_assess": 0.1333
+      },
+      "confidence": 0.6167
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6498,
+       "tilted": 0.1741,
+       "not_visible": 0.1761
+      },
+      "confidence": 0.6498
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.5791,
+       "encroaching": 0.1766,
+       "not_visible": 0.2443
+      },
+      "confidence": 0.5791
+     },
+     "health": {
+      "type": "score",
+      "score": 1.036,
+      "probabilities": {
+       "0": 0.1752,
+       "1": 0.6198,
+       "2": 0.1992,
+       "3": 0.0058,
+       "4": 0.0
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6198
+     }
+    },
+    "latency_ms": 54.3,
+    "model_ms": 45.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.8148,
+       "maintain": 0.0573,
+       "defer": 0.004,
+       "reinspect": 0.1238
+      },
+      "confidence": 0.8148
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 67.0,
+    "model_ms": 56.0
+   },
+   "action": "replace",
+   "confidence": 0.8148,
+   "route": "auto"
+  },
+  "osm-414750": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6569,
+       "leaning": 0.1596,
+       "cannot_assess": 0.1835
+      },
+      "confidence": 0.6569
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1483,
+       "tilted": 0.683,
+       "not_visible": 0.1687
+      },
+      "confidence": 0.683
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7422,
+       "encroaching": 0.1535,
+       "not_visible": 0.1043
+      },
+      "confidence": 0.7422
+     },
+     "health": {
+      "type": "score",
+      "score": 0.775,
+      "probabilities": {
+       "0": 0.3674,
+       "1": 0.4967,
+       "2": 0.1294,
+       "3": 0.0065,
+       "4": 0.0001
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4967
+     }
+    },
+    "latency_ms": 59.0,
+    "model_ms": 51.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.6009,
+       "maintain": 0.2404,
+       "defer": 0.0187,
+       "reinspect": 0.14
+      },
+      "confidence": 0.6009
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.932
+     }
+    },
+    "latency_ms": 51.1,
+    "model_ms": 34.9
+   },
+   "action": "replace",
+   "confidence": 0.6009,
+   "route": "auto"
+  },
+  "osm-428004": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7694,
+       "leaning": 0.1323,
+       "cannot_assess": 0.0983
+      },
+      "confidence": 0.7694
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7261,
+       "tilted": 0.0936,
+       "not_visible": 0.1803
+      },
+      "confidence": 0.7261
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7334,
+       "encroaching": 0.1325,
+       "not_visible": 0.1341
+      },
+      "confidence": 0.7334
+     },
+     "health": {
+      "type": "score",
+      "score": 1.123,
+      "probabilities": {
+       "0": 0.0946,
+       "1": 0.691,
+       "2": 0.2117,
+       "3": 0.0027,
+       "4": 0.0
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.691
+     }
+    },
+    "latency_ms": 69.4,
+    "model_ms": 59.7
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0938,
+       "maintain": 0.7037,
+       "defer": 0.0515,
+       "reinspect": 0.1509
+      },
+      "confidence": 0.7037
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.6787
+     }
+    },
+    "latency_ms": 58.2,
+    "model_ms": 51.6
+   },
+   "action": "maintain",
+   "confidence": 0.7037,
+   "route": "auto"
+  },
+  "osm-437209": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.1074,
+       "leaning": 0.8423,
+       "cannot_assess": 0.0503
+      },
+      "confidence": 0.8423
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0659,
+       "tilted": 0.8611,
+       "not_visible": 0.073
+      },
+      "confidence": 0.8611
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.802,
+       "encroaching": 0.0982,
+       "not_visible": 0.0999
+      },
+      "confidence": 0.802
+     },
+     "health": {
+      "type": "score",
+      "score": 0.761,
+      "probabilities": {
+       "0": 0.3775,
+       "1": 0.4902,
+       "2": 0.1258,
+       "3": 0.0064,
+       "4": 0.0001
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4902
+     }
+    },
+    "latency_ms": 67.4,
+    "model_ms": 58.7
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.7396,
+       "maintain": 0.0421,
+       "defer": 0.0024,
+       "reinspect": 0.2159
+      },
+      "confidence": 0.7396
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 40.4,
+    "model_ms": 30.3
+   },
+   "action": "replace",
+   "confidence": 0.7396,
+   "route": "auto"
+  },
+  "osm-438280": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "cannot_assess",
+      "probabilities": {
+       "straight": 0.2037,
+       "leaning": 0.1438,
+       "cannot_assess": 0.6525
+      },
+      "confidence": 0.6525
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.669,
+       "tilted": 0.1206,
+       "not_visible": 0.2105
+      },
+      "confidence": 0.669
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6436,
+       "encroaching": 0.1734,
+       "not_visible": 0.183
+      },
+      "confidence": 0.6436
+     },
+     "health": {
+      "type": "score",
+      "score": 2.683,
+      "probabilities": {
+       "0": 0.0001,
+       "1": 0.019,
+       "2": 0.3525,
+       "3": 0.5545,
+       "4": 0.0739
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5545
+     }
+    },
+    "latency_ms": 70.9,
+    "model_ms": 60.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0019,
+       "maintain": 0.0399,
+       "defer": 0.8336,
+       "reinspect": 0.1246
+      },
+      "confidence": 0.8336
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.3299
+     }
+    },
+    "latency_ms": 53.6,
+    "model_ms": 47.2
+   },
+   "action": "defer",
+   "confidence": 0.8336,
+   "route": "engineer"
+  },
+  "osm-441810": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6158,
+       "leaning": 0.2029,
+       "cannot_assess": 0.1813
+      },
+      "confidence": 0.6158
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6255,
+       "tilted": 0.1688,
+       "not_visible": 0.2058
+      },
+      "confidence": 0.6255
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.2344,
+       "encroaching": 0.6187,
+       "not_visible": 0.147
+      },
+      "confidence": 0.6187
+     },
+     "health": {
+      "type": "score",
+      "score": 2.848,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0033,
+       "2": 0.2307,
+       "3": 0.6802,
+       "4": 0.0858
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6802
+     }
+    },
+    "latency_ms": 55.9,
+    "model_ms": 42.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0012,
+       "maintain": 0.0325,
+       "defer": 0.9061,
+       "reinspect": 0.0602
+      },
+      "confidence": 0.9061
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.385
+     }
+    },
+    "latency_ms": 38.6,
+    "model_ms": 30.8
+   },
+   "action": "defer",
+   "confidence": 0.9061,
+   "route": "auto"
+  },
+  "osm-464377": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.2203,
+       "leaning": 0.6471,
+       "cannot_assess": 0.1326
+      },
+      "confidence": 0.6471
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.2033,
+       "tilted": 0.6641,
+       "not_visible": 0.1326
+      },
+      "confidence": 0.6641
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6966,
+       "encroaching": 0.1821,
+       "not_visible": 0.1213
+      },
+      "confidence": 0.6966
+     },
+     "health": {
+      "type": "score",
+      "score": 0.175,
+      "probabilities": {
+       "0": 0.8272,
+       "1": 0.171,
+       "2": 0.0017,
+       "3": 0.0,
+       "4": 0.0
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.8272
+     }
+    },
+    "latency_ms": 53.1,
+    "model_ms": 35.2
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.8241,
+       "maintain": 0.044,
+       "defer": 0.0024,
+       "reinspect": 0.1295
+      },
+      "confidence": 0.8241
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 54.3,
+    "model_ms": 40.6
+   },
+   "action": "replace",
+   "confidence": 0.8241,
+   "route": "auto"
+  },
+  "osm-508230": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6928,
+       "leaning": 0.1051,
+       "cannot_assess": 0.2021
+      },
+      "confidence": 0.6928
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6863,
+       "tilted": 0.1164,
+       "not_visible": 0.1973
+      },
+      "confidence": 0.6863
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1492,
+       "encroaching": 0.744,
+       "not_visible": 0.1068
+      },
+      "confidence": 0.744
+     },
+     "health": {
+      "type": "score",
+      "score": 1.34,
+      "probabilities": {
+       "0": 0.1281,
+       "1": 0.4632,
+       "2": 0.3511,
+       "3": 0.0558,
+       "4": 0.0019
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4632
+     }
+    },
+    "latency_ms": 60.8,
+    "model_ms": 49.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.3733,
+       "maintain": 0.2344,
+       "defer": 0.1327,
+       "reinspect": 0.2596
+      },
+      "confidence": 0.3733
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 65.1,
+    "model_ms": 48.4
+   },
+   "action": "replace",
+   "confidence": 0.3733,
+   "route": "engineer"
+  },
+  "osm-524164": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6569,
+       "leaning": 0.217,
+       "cannot_assess": 0.1261
+      },
+      "confidence": 0.6569
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6208,
+       "tilted": 0.1699,
+       "not_visible": 0.2093
+      },
+      "confidence": 0.6208
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6485,
+       "encroaching": 0.2224,
+       "not_visible": 0.1292
+      },
+      "confidence": 0.6485
+     },
+     "health": {
+      "type": "score",
+      "score": 3.305,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0007,
+       "2": 0.0694,
+       "3": 0.5541,
+       "4": 0.3758
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5541
+     }
+    },
+    "latency_ms": 68.8,
+    "model_ms": 48.0
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0033,
+       "maintain": 0.0584,
+       "defer": 0.852,
+       "reinspect": 0.0863
+      },
+      "confidence": 0.852
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.416
+     }
+    },
+    "latency_ms": 69.9,
+    "model_ms": 50.6
+   },
+   "action": "defer",
+   "confidence": 0.852,
+   "route": "auto"
+  },
+  "osm-534172": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7217,
+       "leaning": 0.1271,
+       "cannot_assess": 0.1513
+      },
+      "confidence": 0.7217
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0991,
+       "tilted": 0.7165,
+       "not_visible": 0.1843
+      },
+      "confidence": 0.7165
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1174,
+       "encroaching": 0.7061,
+       "not_visible": 0.1766
+      },
+      "confidence": 0.7061
+     },
+     "health": {
+      "type": "score",
+      "score": 1.87,
+      "probabilities": {
+       "0": 0.0032,
+       "1": 0.2198,
+       "2": 0.6816,
+       "3": 0.0948,
+       "4": 0.0006
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6816
+     }
+    },
+    "latency_ms": 77.9,
+    "model_ms": 56.5
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.2764,
+       "maintain": 0.5629,
+       "defer": 0.0331,
+       "reinspect": 0.1277
+      },
+      "confidence": 0.5629
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.841
+     }
+    },
+    "latency_ms": 56.3,
+    "model_ms": 43.8
+   },
+   "action": "maintain",
+   "confidence": 0.5629,
+   "route": "engineer"
+  },
+  "osm-543738": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8483,
+       "leaning": 0.0561,
+       "cannot_assess": 0.0955
+      },
+      "confidence": 0.8483
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8756,
+       "tilted": 0.0659,
+       "not_visible": 0.0585
+      },
+      "confidence": 0.8756
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8337,
+       "encroaching": 0.0627,
+       "not_visible": 0.1037
+      },
+      "confidence": 0.8337
+     },
+     "health": {
+      "type": "score",
+      "score": 2.77,
+      "probabilities": {
+       "0": 0.0009,
+       "1": 0.0377,
+       "2": 0.3085,
+       "3": 0.4961,
+       "4": 0.1568
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4961
+     }
+    },
+    "latency_ms": 58.7,
+    "model_ms": 43.4
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0037,
+       "maintain": 0.0545,
+       "defer": 0.8037,
+       "reinspect": 0.1382
+      },
+      "confidence": 0.8037
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.3428
+     }
+    },
+    "latency_ms": 57.9,
+    "model_ms": 44.5
+   },
+   "action": "defer",
+   "confidence": 0.8037,
+   "route": "auto"
+  },
+  "osm-555326": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8178,
+       "leaning": 0.1038,
+       "cannot_assess": 0.0784
+      },
+      "confidence": 0.8178
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8131,
+       "tilted": 0.0903,
+       "not_visible": 0.0966
+      },
+      "confidence": 0.8131
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8341,
+       "encroaching": 0.095,
+       "not_visible": 0.0709
+      },
+      "confidence": 0.8341
+     },
+     "health": {
+      "type": "score",
+      "score": 2.99,
+      "probabilities": {
+       "0": 0.0005,
+       "1": 0.0219,
+       "2": 0.2208,
+       "3": 0.5009,
+       "4": 0.2559
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5009
+     }
+    },
+    "latency_ms": 64.1,
+    "model_ms": 54.4
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0095,
+       "maintain": 0.1986,
+       "defer": 0.6135,
+       "reinspect": 0.1784
+      },
+      "confidence": 0.6135
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5414
+     }
+    },
+    "latency_ms": 55.7,
+    "model_ms": 36.6
+   },
+   "action": "defer",
+   "confidence": 0.6135,
+   "route": "auto"
+  },
+  "osm-584965": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.0941,
+       "leaning": 0.829,
+       "cannot_assess": 0.0768
+      },
+      "confidence": 0.829
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0973,
+       "tilted": 0.8241,
+       "not_visible": 0.0786
+      },
+      "confidence": 0.8241
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.0889,
+       "encroaching": 0.8195,
+       "not_visible": 0.0916
+      },
+      "confidence": 0.8195
+     },
+     "health": {
+      "type": "score",
+      "score": 0.834,
+      "probabilities": {
+       "0": 0.3466,
+       "1": 0.4849,
+       "2": 0.1567,
+       "3": 0.0117,
+       "4": 0.0002
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4849
+     }
+    },
+    "latency_ms": 77.2,
+    "model_ms": 58.5
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.8175,
+       "maintain": 0.0452,
+       "defer": 0.0025,
+       "reinspect": 0.1348
+      },
+      "confidence": 0.8175
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.97
+     }
+    },
+    "latency_ms": 55.2,
+    "model_ms": 37.2
+   },
+   "action": "replace",
+   "confidence": 0.8175,
+   "route": "auto"
+  },
+  "osm-604781": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7736,
+       "leaning": 0.1094,
+       "cannot_assess": 0.117
+      },
+      "confidence": 0.7736
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1339,
+       "tilted": 0.7642,
+       "not_visible": 0.1019
+      },
+      "confidence": 0.7642
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8008,
+       "encroaching": 0.0723,
+       "not_visible": 0.1269
+      },
+      "confidence": 0.8008
+     },
+     "health": {
+      "type": "score",
+      "score": 3.18,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0005,
+       "2": 0.0813,
+       "3": 0.6564,
+       "4": 0.2619
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6564
+     }
+    },
+    "latency_ms": 48.6,
+    "model_ms": 35.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0206,
+       "maintain": 0.459,
+       "defer": 0.374,
+       "reinspect": 0.1463
+      },
+      "confidence": 0.459
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5345
+     }
+    },
+    "latency_ms": 45.8,
+    "model_ms": 30.6
+   },
+   "action": "maintain",
+   "confidence": 0.459,
+   "route": "engineer"
+  },
+  "osm-616763": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.1266,
+       "leaning": 0.7883,
+       "cannot_assess": 0.0851
+      },
+      "confidence": 0.7883
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.793,
+       "tilted": 0.0777,
+       "not_visible": 0.1293
+      },
+      "confidence": 0.793
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7933,
+       "encroaching": 0.076,
+       "not_visible": 0.1307
+      },
+      "confidence": 0.7933
+     },
+     "health": {
+      "type": "score",
+      "score": 2.66,
+      "probabilities": {
+       "0": 0.003,
+       "1": 0.0648,
+       "2": 0.3438,
+       "3": 0.4465,
+       "4": 0.1419
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4465
+     }
+    },
+    "latency_ms": 56.0,
+    "model_ms": 37.4
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0329,
+       "maintain": 0.4439,
+       "defer": 0.3624,
+       "reinspect": 0.1608
+      },
+      "confidence": 0.4439
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.54
+     }
+    },
+    "latency_ms": 68.4,
+    "model_ms": 51.8
+   },
+   "action": "maintain",
+   "confidence": 0.4439,
+   "route": "engineer"
+  },
+  "osm-638962": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7795,
+       "leaning": 0.1337,
+       "cannot_assess": 0.0868
+      },
+      "confidence": 0.7795
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6974,
+       "tilted": 0.1338,
+       "not_visible": 0.1688
+      },
+      "confidence": 0.6974
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1243,
+       "encroaching": 0.7811,
+       "not_visible": 0.0946
+      },
+      "confidence": 0.7811
+     },
+     "health": {
+      "type": "score",
+      "score": 2.005,
+      "probabilities": {
+       "0": 0.0011,
+       "1": 0.1406,
+       "2": 0.7121,
+       "3": 0.145,
+       "4": 0.0012
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.7121
+     }
+    },
+    "latency_ms": 55.6,
+    "model_ms": 46.9
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.1845,
+       "maintain": 0.6259,
+       "defer": 0.0343,
+       "reinspect": 0.1554
+      },
+      "confidence": 0.6259
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.7561
+     }
+    },
+    "latency_ms": 67.4,
+    "model_ms": 51.6
+   },
+   "action": "maintain",
+   "confidence": 0.6259,
+   "route": "auto"
+  },
+  "osm-724707": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7483,
+       "leaning": 0.1103,
+       "cannot_assess": 0.1414
+      },
+      "confidence": 0.7483
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7926,
+       "tilted": 0.1211,
+       "not_visible": 0.0863
+      },
+      "confidence": 0.7926
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1352,
+       "encroaching": 0.7429,
+       "not_visible": 0.1219
+      },
+      "confidence": 0.7429
+     },
+     "health": {
+      "type": "score",
+      "score": 2.26,
+      "probabilities": {
+       "0": 0.0015,
+       "1": 0.0945,
+       "2": 0.5643,
+       "3": 0.3221,
+       "4": 0.0176
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5643
+     }
+    },
+    "latency_ms": 48.4,
+    "model_ms": 37.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.1612,
+       "maintain": 0.291,
+       "defer": 0.2913,
+       "reinspect": 0.2566
+      },
+      "confidence": 0.2913
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5795
+     }
+    },
+    "latency_ms": 51.1,
+    "model_ms": 42.1
+   },
+   "action": "defer",
+   "confidence": 0.2913,
+   "route": "engineer"
+  },
+  "osm-749105": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7134,
+       "leaning": 0.1708,
+       "cannot_assess": 0.1158
+      },
+      "confidence": 0.7134
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7229,
+       "tilted": 0.1676,
+       "not_visible": 0.1095
+      },
+      "confidence": 0.7229
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6728,
+       "encroaching": 0.1786,
+       "not_visible": 0.1486
+      },
+      "confidence": 0.6728
+     },
+     "health": {
+      "type": "score",
+      "score": 3.259,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0015,
+       "2": 0.0904,
+       "3": 0.5552,
+       "4": 0.3529
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5552
+     }
+    },
+    "latency_ms": 66.3,
+    "model_ms": 59.7
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0046,
+       "maintain": 0.0622,
+       "defer": 0.8351,
+       "reinspect": 0.0981
+      },
+      "confidence": 0.8351
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.4002
+     }
+    },
+    "latency_ms": 62.8,
+    "model_ms": 55.0
+   },
+   "action": "defer",
+   "confidence": 0.8351,
+   "route": "auto"
+  },
+  "osm-769434": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7967,
+       "leaning": 0.1002,
+       "cannot_assess": 0.1031
+      },
+      "confidence": 0.7967
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1669,
+       "tilted": 0.7243,
+       "not_visible": 0.1088
+      },
+      "confidence": 0.7243
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1468,
+       "encroaching": 0.6983,
+       "not_visible": 0.1549
+      },
+      "confidence": 0.6983
+     },
+     "health": {
+      "type": "score",
+      "score": 2.094,
+      "probabilities": {
+       "0": 0.0111,
+       "1": 0.1844,
+       "2": 0.526,
+       "3": 0.257,
+       "4": 0.0215
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.526
+     }
+    },
+    "latency_ms": 67.4,
+    "model_ms": 46.7
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.3468,
+       "maintain": 0.4583,
+       "defer": 0.0352,
+       "reinspect": 0.1597
+      },
+      "confidence": 0.4583
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.8466
+     }
+    },
+    "latency_ms": 59.4,
+    "model_ms": 45.3
+   },
+   "action": "maintain",
+   "confidence": 0.4583,
+   "route": "engineer"
+  },
+  "osm-860243": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7524,
+       "leaning": 0.0865,
+       "cannot_assess": 0.1611
+      },
+      "confidence": 0.7524
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.783,
+       "tilted": 0.1368,
+       "not_visible": 0.0802
+      },
+      "confidence": 0.783
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8152,
+       "encroaching": 0.085,
+       "not_visible": 0.0998
+      },
+      "confidence": 0.8152
+     },
+     "health": {
+      "type": "score",
+      "score": 3.21,
+      "probabilities": {
+       "0": 0.0002,
+       "1": 0.0097,
+       "2": 0.1415,
+       "3": 0.4771,
+       "4": 0.3715
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4771
+     }
+    },
+    "latency_ms": 75.5,
+    "model_ms": 57.5
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0145,
+       "maintain": 0.4659,
+       "defer": 0.3643,
+       "reinspect": 0.1552
+      },
+      "confidence": 0.4659
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5539
+     }
+    },
+    "latency_ms": 47.5,
+    "model_ms": 40.3
+   },
+   "action": "maintain",
+   "confidence": 0.4659,
+   "route": "engineer"
+  },
+  "osm-861084": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.8433,
+       "leaning": 0.1007,
+       "cannot_assess": 0.056
+      },
+      "confidence": 0.8433
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.0751,
+       "tilted": 0.8377,
+       "not_visible": 0.0871
+      },
+      "confidence": 0.8377
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.8442,
+       "encroaching": 0.0525,
+       "not_visible": 0.1033
+      },
+      "confidence": 0.8442
+     },
+     "health": {
+      "type": "score",
+      "score": 1.771,
+      "probabilities": {
+       "0": 0.0262,
+       "1": 0.3125,
+       "2": 0.5296,
+       "3": 0.1274,
+       "4": 0.0044
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5296
+     }
+    },
+    "latency_ms": 60.4,
+    "model_ms": 48.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "replace",
+      "probabilities": {
+       "replace": 0.6829,
+       "maintain": 0.1377,
+       "defer": 0.0063,
+       "reinspect": 0.1731
+      },
+      "confidence": 0.6829
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.8797
+     }
+    },
+    "latency_ms": 50.9,
+    "model_ms": 32.0
+   },
+   "action": "replace",
+   "confidence": 0.6829,
+   "route": "auto"
+  },
+  "osm-902291": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.1457,
+       "leaning": 0.7674,
+       "cannot_assess": 0.087
+      },
+      "confidence": 0.7674
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.699,
+       "tilted": 0.1594,
+       "not_visible": 0.1416
+      },
+      "confidence": 0.699
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.1408,
+       "encroaching": 0.7679,
+       "not_visible": 0.0913
+      },
+      "confidence": 0.7679
+     },
+     "health": {
+      "type": "score",
+      "score": 3.608,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0016,
+       "2": 0.0408,
+       "3": 0.3053,
+       "4": 0.6523
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.6523
+     }
+    },
+    "latency_ms": 73.3,
+    "model_ms": 59.1
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0043,
+       "maintain": 0.058,
+       "defer": 0.7852,
+       "reinspect": 0.1525
+      },
+      "confidence": 0.7852
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.3152
+     }
+    },
+    "latency_ms": 59.0,
+    "model_ms": 41.5
+   },
+   "action": "defer",
+   "confidence": 0.7852,
+   "route": "auto"
+  },
+  "osm-925390": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.0819,
+       "leaning": 0.8145,
+       "cannot_assess": 0.1036
+      },
+      "confidence": 0.8145
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.1163,
+       "tilted": 0.7365,
+       "not_visible": 0.1472
+      },
+      "confidence": 0.7365
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "encroaching",
+      "probabilities": {
+       "clear": 0.127,
+       "encroaching": 0.7558,
+       "not_visible": 0.1172
+      },
+      "confidence": 0.7558
+     },
+     "health": {
+      "type": "score",
+      "score": 3.494,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0013,
+       "2": 0.0533,
+       "3": 0.3959,
+       "4": 0.5495
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5495
+     }
+    },
+    "latency_ms": 70.4,
+    "model_ms": 50.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0419,
+       "maintain": 0.5568,
+       "defer": 0.2339,
+       "reinspect": 0.1674
+      },
+      "confidence": 0.5568
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5796
+     }
+    },
+    "latency_ms": 44.4,
+    "model_ms": 36.5
+   },
+   "action": "maintain",
+   "confidence": 0.5568,
+   "route": "engineer"
+  },
+  "osm-930303": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "leaning",
+      "probabilities": {
+       "straight": 0.2374,
+       "leaning": 0.6108,
+       "cannot_assess": 0.1518
+      },
+      "confidence": 0.6108
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.6383,
+       "tilted": 0.1376,
+       "not_visible": 0.224
+      },
+      "confidence": 0.6383
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.6494,
+       "encroaching": 0.16,
+       "not_visible": 0.1906
+      },
+      "confidence": 0.6494
+     },
+     "health": {
+      "type": "score",
+      "score": 3.253,
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0007,
+       "2": 0.0756,
+       "3": 0.5936,
+       "4": 0.3301
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.5936
+     }
+    },
+    "latency_ms": 76.8,
+    "model_ms": 62.0
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "defer",
+      "probabilities": {
+       "replace": 0.0046,
+       "maintain": 0.0908,
+       "defer": 0.813,
+       "reinspect": 0.0916
+      },
+      "confidence": 0.813
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.4845
+     }
+    },
+    "latency_ms": 62.9,
+    "model_ms": 48.5
+   },
+   "action": "defer",
+   "confidence": 0.813,
+   "route": "auto"
+  },
+  "osm-932511": {
+   "v1": {
+    "answers": {
+     "lean": {
+      "type": "choice",
+      "choice": "straight",
+      "probabilities": {
+       "straight": 0.7074,
+       "leaning": 0.1493,
+       "cannot_assess": 0.1433
+      },
+      "confidence": 0.7074
+     },
+     "crossarm": {
+      "type": "choice",
+      "choice": "tilted",
+      "probabilities": {
+       "straight": 0.158,
+       "tilted": 0.6709,
+       "not_visible": 0.1711
+      },
+      "confidence": 0.6709
+     },
+     "vegetation": {
+      "type": "choice",
+      "choice": "clear",
+      "probabilities": {
+       "clear": 0.7024,
+       "encroaching": 0.1702,
+       "not_visible": 0.1274
+      },
+      "confidence": 0.7024
+     },
+     "health": {
+      "type": "score",
+      "score": 2.319,
+      "probabilities": {
+       "0": 0.0149,
+       "1": 0.1479,
+       "2": 0.4194,
+       "3": 0.3394,
+       "4": 0.0784
+      },
+      "legend": {
+       "0": "critical: imminent failure risk",
+       "1": "poor: significant defects",
+       "2": "fair: some defects",
+       "3": "good: minor wear",
+       "4": "as new"
+      },
+      "confidence": 0.4194
+     }
+    },
+    "latency_ms": 54.8,
+    "model_ms": 47.6
+   },
+   "v2": {
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "maintain",
+      "probabilities": {
+       "replace": 0.0329,
+       "maintain": 0.6361,
+       "defer": 0.1604,
+       "reinspect": 0.1706
+      },
+      "confidence": 0.6361
+     },
+     "safety_risk_now": {
+      "type": "noul",
+      "noul": 0.5635
+     }
+    },
+    "latency_ms": 56.5,
+    "model_ms": 48.6
+   },
+   "action": "maintain",
+   "confidence": 0.6361,
+   "route": "auto"
+  }
+ }
+}
