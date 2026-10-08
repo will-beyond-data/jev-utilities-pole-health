@@ -803,6 +803,7 @@ function setStep(name) {
 const setTimerText = (s) => { el$.lvTimer.textContent = s || ''; };
 
 function clearCards() {
+  [el$.cardV1, el$.cardRec, el$.cardDec].forEach((c) => c.classList.remove('stale'));
   el$.cardV1.innerHTML = '<h3>What the model reads in the photo</h3><p class="wait">Waiting for the photo read.</p>';
   el$.cardRec.innerHTML = '<h3>Asset record</h3><p class="wait">Checked after the photo.</p>';
   el$.cardDec.innerHTML = '<h3>Decision</h3><p class="wait">Photo and record together decide the action.</p>';
@@ -828,6 +829,7 @@ function showStage(it, dur) {
 }
 function showV1(it, dur) {
   const d = it.d, a = animOf(dur), card = el$.cardV1;
+  card.classList.remove('stale');
   card.style.setProperty('--anim', a + 'ms');
   const cols = [['lean', 'Lean'], ['crossarm', 'Crossarm'], ['vegetation', 'Vegetation']].map(([k, name]) => {
     const ans = answerOf(d, 'v1', k);
@@ -850,6 +852,7 @@ function showV1(it, dur) {
 }
 function showRecord(it, dur) {
   const card = el$.cardRec, rec = it.rec, a = animOf(dur);
+  card.classList.remove('stale');
   card.style.setProperty('--anim', a + 'ms');
   card.classList.remove('slide');
   if (!rec) { card.innerHTML = '<h3>Asset record</h3><p class="wait">No record paired with this photo. The answer comes from the photo alone.</p>'; return; }
@@ -861,6 +864,7 @@ function showRecord(it, dur) {
 }
 function showDecision(it) {
   const d = it.d, card = el$.cardDec, a = passMs(d.v1), b = passMs(d.v2);
+  card.classList.remove('stale');
   card.style.setProperty('--anim', Math.min(500, animOf(LV.sched[LV.phase] ? LV.sched[LV.phase].dur : 0)) + 'ms');
   const times = [a !== null ? `Photo read: ${rnd(a)} ms` : '', b !== null ? `Decision: ${rnd(b)} ms` : ''].filter(Boolean).join(', ');
   if (!d.action) {
@@ -979,7 +983,8 @@ function enter(i) {
   switch (ph.name) {
     case 'in':
       showStage(it, ph.dur);
-      if (LV.t < 0.5) clearCards();
+      // At speed the cards are not blanked (that flickers), so the last pole's results are dimmed until replaced.
+      if (LV.t < 0.5) clearCards(); else [el$.cardV1, el$.cardRec, el$.cardDec].forEach((c) => c.classList.add('stale'));
       if (!it.custom) { miniActive(it.id); filmUpdate(); preload(LV.idx + 1); } else miniActive(null);
       setTimerText('');
       break;
