@@ -12,8 +12,9 @@
 #   WORKDIR     where everything goes. Use a path on the persistent volume. Default $HOME/jev
 #   MODEL_DIR   where the weights go. Default $WORKDIR/matilda-jev-v1
 #   CUDA_INDEX  PyTorch wheel index. The right cuXXX depends on the driver: run `nvidia-smi` and read
-#               "CUDA Version" in the header. cu128 needs a driver that reports 12.8 or newer.
-#               Use cu126 for a 12.6 driver. Default https://download.pytorch.org/whl/cu128
+#               "CUDA Version" in the header. torch 2.14.0 is published for cu126 and cu130 only (not
+#               cu128). cu126 runs on drivers reporting 12.6 or newer; cu130 needs 13.0 or newer.
+#               Default https://download.pytorch.org/whl/cu126
 #   PORT        server port. Default 8083
 #   HOST        bind address. Default 0.0.0.0 (the API key below still applies). Use 127.0.0.1 to keep it local.
 #   HF_TOKEN    optional Hugging Face token, only needed if the download is rate limited or gated
@@ -23,7 +24,7 @@ set -euo pipefail
 WORKDIR="${WORKDIR:-$HOME/jev}"
 MODEL_DIR="${MODEL_DIR:-$WORKDIR/matilda-jev-v1}"
 VENV="${VENV:-$WORKDIR/venv}"
-CUDA_INDEX="${CUDA_INDEX:-https://download.pytorch.org/whl/cu128}"
+CUDA_INDEX="${CUDA_INDEX:-https://download.pytorch.org/whl/cu126}"
 PORT="${PORT:-8083}"
 HOST="${HOST:-0.0.0.0}"
 TORCH_VERSION="2.14.0"

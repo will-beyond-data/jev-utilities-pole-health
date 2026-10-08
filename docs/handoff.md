@@ -97,8 +97,8 @@ Official runtime is in the model repo under `runtime/maincode_jev_serve` and ser
 `POST /v1/systemone` (request and response shapes are in `docs/spec.md`). Images: up to 4 per
 request, base64 data URLs (png, jpeg, webp), 8 MB and 16 MP limits. Question types: choice (1 to
 255 options), noul (yes/no), score (2 to 10 ordered levels). Tested by Maincode on AMD MI355X with
-Python 3.12, transformers 5.17.0, torch 2.14.0. Context limits auto-size to GPU memory (80 GB gets
-32k tokens).
+Python 3.12, transformers 5.17.0, torch 2.14.0. Context limits auto-size to GPU memory: on a RunPod
+A100-SXM4-80GB the server reported `max_context_tokens` 8192 (2026-10-08).
 
 **Matilda Jev Space** (`hugging-apps/matilda-jev`, Gradio on ZeroGPU): endpoint
 `/decide_request` takes the exact `/v1/systemone` JSON as a string and returns the same response
