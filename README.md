@@ -89,7 +89,9 @@ summary is in [`runs/20261008T120934Z-http/eval_summary.json`](runs/20261008T120
 Toowoomba, Queensland:
 
 - **Live inspection**: each photo, the model reading it, the findings, the record and the
-  decision, slowed down so you can follow it or at the measured real speed.
+  decision, slowed down so you can follow it or at the measured real speed (each decision then
+  stays on screen for a short pause before the next pole). The poles per second counter is always
+  the model's own speed.
 - **Map**: every inspected pole turns into a replace, maintain, defer or engineer marker as it is
   decided.
 - **Flip**: the same photo with two different records, and two different decisions.

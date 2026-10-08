@@ -696,11 +696,15 @@ function wireRel(T) {
 const LV = {
   items: [], idx: 0, playing: false, started: false, finished: false,
   mode: 'explain', t: 0, cur: null, sched: [], phase: 0, elapsed: 0, last: 0, raf: 0,
-  msSorted: [], stamps: [], decidedCount: 0,
+  msSorted: [], decidedCount: 0,
   mini: null, miniMarkers: new Map(), activeId: null, thumbs: [],
   api: false, presets: [], idleTimer: 0,
 };
 const EXPLAIN = { in: 600, read: 1300, v1: 900, record: 1000, decision: 900 };
+// At real speed only the two model passes take time, so the decision gets a short on-screen pause
+// and reveals get a minimum length. Neither changes the measured model times shown.
+const DECISION_HOLD_MS = 600;
+const REVEAL_MS = 300;
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
 const rnd = Math.round;
 const STATE_VAR = { replace: '--c-replace', maintain: '--c-maintain', defer: '--c-defer', engineer: '--c-engineer' };
@@ -749,6 +753,7 @@ function realDur(name, it) {
   const a = passMs(it.d && it.d.v1), b = passMs(it.d && it.d.v2);
   if (name === 'read') return a ?? 30;
   if (name === 'record') return b ?? 30;
+  if (name === 'decision') return DECISION_HOLD_MS;
   return 4;
 }
 const phaseDur = (name, it, t) => {
@@ -790,7 +795,7 @@ function flush(root, markers) {
   $$('[data-w]', root).forEach((f) => { f.style.width = f.dataset.w + '%'; });
   (markers || []).forEach((m) => { m.style.left = m.dataset.pos + '%'; });
 }
-const animOf = (dur) => (dur < 30 ? 0 : Math.round(Math.min(dur, 900)));
+const animOf = (dur) => (dur <= 0 ? 0 : Math.round(Math.min(Math.max(dur, REVEAL_MS), 900)));
 function setStep(name) {
   const order = { in: 0, read: 1, v1: 1, record: 2, decision: 3 };
   const cur = order[name];
@@ -803,7 +808,6 @@ function setStep(name) {
 const setTimerText = (s) => { el$.lvTimer.textContent = s || ''; };
 
 function clearCards() {
-  [el$.cardV1, el$.cardRec, el$.cardDec].forEach((c) => c.classList.remove('stale'));
   el$.cardV1.innerHTML = '<h3>What the model reads in the photo</h3><p class="wait">Waiting for the photo read.</p>';
   el$.cardRec.innerHTML = '<h3>Asset record</h3><p class="wait">Checked after the photo.</p>';
   el$.cardDec.innerHTML = '<h3>Decision</h3><p class="wait">Photo and record together decide the action.</p>';
@@ -829,7 +833,6 @@ function showStage(it, dur) {
 }
 function showV1(it, dur) {
   const d = it.d, a = animOf(dur), card = el$.cardV1;
-  card.classList.remove('stale');
   card.style.setProperty('--anim', a + 'ms');
   const cols = [['lean', 'Lean'], ['crossarm', 'Crossarm'], ['vegetation', 'Vegetation']].map(([k, name]) => {
     const ans = answerOf(d, 'v1', k);
@@ -852,7 +855,6 @@ function showV1(it, dur) {
 }
 function showRecord(it, dur) {
   const card = el$.cardRec, rec = it.rec, a = animOf(dur);
-  card.classList.remove('stale');
   card.style.setProperty('--anim', a + 'ms');
   card.classList.remove('slide');
   if (!rec) { card.innerHTML = '<h3>Asset record</h3><p class="wait">No record paired with this photo. The answer comes from the photo alone.</p>'; return; }
@@ -864,8 +866,7 @@ function showRecord(it, dur) {
 }
 function showDecision(it) {
   const d = it.d, card = el$.cardDec, a = passMs(d.v1), b = passMs(d.v2);
-  card.classList.remove('stale');
-  card.style.setProperty('--anim', Math.min(500, animOf(LV.sched[LV.phase] ? LV.sched[LV.phase].dur : 0)) + 'ms');
+  card.style.setProperty('--anim', Math.min(LV.t >= 1 ? REVEAL_MS : 500, animOf(LV.sched[LV.phase] ? LV.sched[LV.phase].dur : 0)) + 'ms');
   const times = [a !== null ? `Photo read: ${rnd(a)} ms` : '', b !== null ? `Decision: ${rnd(b)} ms` : ''].filter(Boolean).join(', ');
   if (!d.action) {
     const lv = levelOf(answerOf(d, 'v1', 'health'));
@@ -948,8 +949,8 @@ function liveCounters() {
   $('#lvTotal').textContent = LV.items.length;
   const med = median(LV.msSorted);
   $('#lvMedian').textContent = med === null ? '-' : rnd(med);
-  const s = LV.stamps.slice(-8);
-  $('#lvRate').textContent = s.length < 2 ? '-' : (((s.length - 1) / ((s[s.length - 1] - s[0]) / 1000)).toFixed(1));
+  // Model throughput, so on-screen pauses (Explain pacing, the decision hold) never lower it.
+  $('#lvRate').textContent = med === null ? '-' : (1000 / med).toFixed(1);
 }
 function markDone(it) {
   if (it.counted) return;
@@ -958,7 +959,6 @@ function markDone(it) {
   LV.decidedCount++;
   const t = poleMs(it.d);
   if (t !== null) insertSorted(LV.msSorted, t);
-  LV.stamps.push(performance.now());
   const st = stateOf(it.d);
   miniState(it.id, st, true);
   const th = LV.thumbs[LV.items.indexOf(it)];
@@ -971,7 +971,7 @@ function setModeChip(it) {
   chip.hidden = false;
   if (t <= 0) chip.textContent = 'Slowed down so you can see it.' + n;
   else if (t < 1) chip.textContent = 'Speeding up toward real speed.' + n;
-  else chip.textContent = tot !== null ? `Real speed. This pole took ${rnd(tot)} ms.` : 'Real speed.';
+  else chip.textContent = tot !== null ? `Real speed. This pole took ${rnd(tot)} ms, then a short pause to show the decision.` : 'Real speed, with a short pause to show each decision.';
   document.body.classList.toggle('live-fast', t > 0.8);
 }
 
@@ -983,8 +983,7 @@ function enter(i) {
   switch (ph.name) {
     case 'in':
       showStage(it, ph.dur);
-      // At speed the cards are not blanked (that flickers), so the last pole's results are dimmed until replaced.
-      if (LV.t < 0.5) clearCards(); else [el$.cardV1, el$.cardRec, el$.cardDec].forEach((c) => c.classList.add('stale'));
+      clearCards();
       if (!it.custom) { miniActive(it.id); filmUpdate(); preload(LV.idx + 1); } else miniActive(null);
       setTimerText('');
       break;
@@ -1134,7 +1133,7 @@ function liveRestart(andPlay) {
   const was = LV.playing || andPlay === true;
   cancelAnimationFrame(LV.raf);
   LV.playing = false; LV.finished = false; LV.started = false;
-  LV.msSorted = []; LV.stamps = []; LV.decidedCount = 0;
+  LV.msSorted = []; LV.decidedCount = 0;
   LV.items.forEach((it) => { it.counted = false; miniState(it.id, 'pending', false); });
   LV.thumbs.forEach((th) => { th.classList.remove('done', 'cur'); $('.bd', th).innerHTML = ''; });
   miniActive(null); liveCounters();
