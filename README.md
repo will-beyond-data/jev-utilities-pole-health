@@ -1,9 +1,9 @@
 # Pole health triage with Matilda Jev
 
-An electricity network owns tens of thousands of ageing poles and can only fix a fraction of
-them each year. Deciding which ones is the hard part. This repo shows an open decision model
+An electricity network has far more ageing poles than it can repair or replace in a year, so
+someone has to decide which ones to fix first. This repo shows an open decision model
 doing that triage: it looks at a photo of each pole, reads the pole's asset record, and
-recommends **replace, maintain, defer or reinspect**, with a probability on every answer and
+recommends replace, maintain, defer or reinspect, with a probability on every answer and
 an engineer review queue for the cases it is unsure about.
 
 It is a working demo, not a production system. It is built by [Beyond Data](https://beyond-data.com.au)
@@ -30,15 +30,16 @@ It returns one action and a public safety risk probability.
 **Routing.** When the chosen action's probability is below 60 percent, or the photo cannot be
 assessed, the pole goes to an engineer instead of being decided automatically.
 
-Change the policy text and the recommendations change with it. No retraining.
+The policy is plain text inside each request, so a network can change what the model is asked to
+weigh by editing that text, without retraining the model.
 
 ## The model
 
 [Matilda Jev](https://huggingface.co/Maincode/matilda-jev-v1) is a decision model released by
 Maincode, an Australian AI company, under Apache-2.0. A decision model does not write text.
 You give it a state (text, JSON, and up to four images) and typed questions with the options
-you define, and it returns a probability for every option from a single forward pass. That is
-why it is fast and cheap to run, and why every answer here comes with a number you can audit.
+you define, and it returns a probability for every option from one pass through the network, without
+generating any text. That is why it is fast and cheap to run, and why every answer here comes with a number you can audit.
 
 Because the weights are open, it can run inside the network's own environment. Photos and
 asset records never have to leave it.
@@ -84,8 +85,8 @@ uv run polehealth build-register   # data/register.json: 1,191 Toowoomba poles w
 Then pick a backend for the model:
 
 - **Your own GPU** (one card with 80 GB or more): follow `scripts/gpu/RUNBOOK.md`. It runs the
-  official Maincode runtime and records honest speed numbers. A full run costs a few dollars
-  of rented GPU time.
+  official Maincode runtime and records speed numbers you can quote. We estimate a full run at
+  a few dollars of rented GPU time; the measured cost goes in the results section.
 - **The public Hugging Face Space** (free, slow, good for trying it): set `HF_TOKEN`, install
   the extra with `uv sync --extra space`, and use `--backend space`. Space timings include
   queueing, so they are never reported as model speed.
@@ -129,5 +130,5 @@ Run the checks with `uv run pytest -q` and `uv run ruff check .`.
 
 Code: Apache-2.0. Data keeps its own licence (see above). Matilda Jev is Apache-2.0 from Maincode.
 
-Built by Beyond Data, Brisbane. We build working software against real operational data to fix
-one decision at a time.
+Built by Beyond Data, Brisbane. We build working software on a business's own operational data to
+improve one specific decision, such as which poles a network maintains this year.
