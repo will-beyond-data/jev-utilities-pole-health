@@ -139,6 +139,7 @@ footer .honesty { color: var(--text-2); }
 footer b { color: var(--text-2); font-weight: 600; }
 
 /* ---------- buttons ---------- */
+.btn[hidden] { display: none; }
 .btn {
   appearance: none; cursor: pointer; border: 1px solid var(--border-strong); background: var(--surface);
   color: var(--text); border-radius: 8px; padding: 0 14px; min-height: 40px; font-weight: 600;
