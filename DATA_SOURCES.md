@@ -8,11 +8,11 @@ raw data into `data/raw/`, which is gitignored.
 
 | Key | Source | Licence | Committed? |
 |---|---|---|---|
-| `pd_lean` | PD-Defect, `pole_lean_assessment/classification` (test and val) | CC BY 4.0 | A resized subset only (`demo/data/photos/`) |
-| `pd_crossarm` | PD-Defect, `crossarm_top_cleat_tilt_assessment/object_detection` (test) | CC BY 4.0 | A resized subset only |
-| `pd_vegetation` | PD-Defect, `vegetation_conductor` (validation images and `GT_ValidationSet.csv`) | CC BY 4.0 | A resized subset only |
-| `osm` | OpenStreetMap `node[power=pole]`, Toowoomba bounding box | ODbL 1.0 | Yes: the raw extract `data/raw/osm_toowoomba.json`, and derived positions in `demo/data/poles.json` |
-| `wrc50` | Kaggle, Western Red Cedar 50-ft Pole (utilityanalytics) | Not stated on the dataset page | No. Downloaded at build time. The register and demo data carry derived records (see below) |
+| `pd_lean` | PD-Defect, `pole_lean_assessment/classification` (test and val) | CC BY 4.0 | No. Downloaded at build time; `demo-data` writes a resized subset to `demo/data/photos/`, which is not committed |
+| `pd_crossarm` | PD-Defect, `crossarm_top_cleat_tilt_assessment/object_detection` (test) | CC BY 4.0 | No, as above |
+| `pd_vegetation` | PD-Defect, `vegetation_conductor` (validation images and `GT_ValidationSet.csv`) | CC BY 4.0 | No, as above |
+| `osm` | OpenStreetMap `node[power=pole]`, Toowoomba bounding box | ODbL 1.0 | Yes: the raw extract `data/raw/osm_toowoomba.json` |
+| `wrc50` | Kaggle, Western Red Cedar 50-ft Pole (utilityanalytics) | Not stated (Kaggle lists it as Unknown) | No. Downloaded at build time. The register and generated demo data carry derived records (see below) |
 | `wrc45` | Kaggle, utility power pole condition dataset 1 (utilityanalytics, 45-ft poles) | Not stated on the dataset page | No. Downloaded on request, not used by the demo |
 | Model | Maincode Matilda Jev v1 (`Maincode/matilda-jev-v1`) | Apache-2.0 | Not included. Downloaded by `scripts/gpu/setup.sh` |
 
@@ -36,8 +36,9 @@ raw data into `data/raw/`, which is gitignored.
     `straight`. That derivation is ours, not the dataset's.
   - Vegetation: `GT_ValidationSet.csv` gives `Risky` or `Safe`, mapped to `encroaching` or `clear`. The dataset
     describes these as image-level risk labels for the validation split.
-- Committed: only the resized photos that appear in the demo, each credited in `poles.json`. The full dataset is not
-  redistributed here.
+- Committed: none of the photos. `polehealth demo-data` writes resized copies of the ones the demo uses to
+  `demo/data/photos/`, each credited in `poles.json`. The demo video in `docs/media/` shows some of them, with the
+  short credit on screen.
 
 ## OpenStreetMap (pole locations)
 
@@ -59,12 +60,13 @@ raw data into `data/raw/`, which is gitignored.
   Wood pecker holes, Carrying transformer, and a Health Index (1 to 5) on the newest inspection.
 - Where: https://www.kaggle.com/datasets/utilityanalytics/western-red-cedar-50ft-pole and
   https://www.kaggle.com/datasets/utilityanalytics/utility-power-pole-condition-dataset1
-- Licence: not stated on the dataset pages at the time of writing. Treat it as unknown. For that reason the raw
+- Licence: not stated on the dataset pages; Kaggle lists it as Unknown. Treat it as unknown. For that reason the raw
   workbooks are never committed. They are downloaded by `polehealth fetch`.
-- What is committed: `data/register.json` is not committed (it is rebuilt by `polehealth build-register`). The demo
-  data (`demo/data/poles.json`), once published, carries per-pole records derived from `wrc50` (shell thickness,
-  groundline, surface condition, woodpecker holes, transformer type, health index, age). If you intend to
-  redistribute this repository commercially, check the licence position with the dataset owner first.
+- What is committed: no records. `data/register.json` is rebuilt by `polehealth build-register` and the demo data
+  (`demo/data/poles.json`) by `polehealth demo-data`, and both are left out of the repository. They carry per-pole
+  records derived from `wrc50` (shell thickness, groundline, surface condition, woodpecker holes, transformer type,
+  health index, age), some of which appear in the demo video for this non-commercial demonstration. If you intend
+  to redistribute generated demo data, check the licence position with the dataset owner first.
 - Attribution: Utility Analytics, "Western Red Cedar 50-ft Pole", Kaggle.
 
 ### The year shift

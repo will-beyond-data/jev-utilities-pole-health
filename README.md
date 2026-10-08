@@ -9,6 +9,12 @@ an engineer review queue for the cases it is unsure about.
 It is a working demo, not a production system. It is built by [Beyond Data](https://beyond-data.com.au)
 to show what a fast, open decision model can do on one real operational decision.
 
+[![The live inspection view: a leaning pole read as leaning (98%) and in critical condition, then a replace decision at 96% confidence](docs/media/demo-poster.jpg)](docs/media/pole-health-demo.mp4)
+
+*Watch the 45 second demo ([docs/media/pole-health-demo.mp4](docs/media/pole-health-demo.mp4)): the map
+filling in as 400 poles are decided, the live inspection at real speed, then the engineer queue.
+Every answer in it was recorded from the model on one NVIDIA A100.*
+
 ## What it does
 
 **Step 1: photo to findings.** A ground-level photo of a pole goes in. The model answers four
@@ -45,20 +51,37 @@ Because the weights are open, it can run inside the network's own environment. P
 asset records never have to leave it.
 
 Maincode reports a median of 56.8 ms per decision on an AMD MI355X. Our own measurements, on
-the hardware named next to them, are in the results section once recorded.
+an NVIDIA A100, are in the results section below.
 
 ## Results
 
-No results are published yet. Every number in this section and in the demo will come from a
-recorded run, stored in `runs/` with the backend, hardware and date alongside it.
+From one recorded run on 8 October 2026: Matilda Jev v1 served by Maincode's official runtime on
+one NVIDIA A100-SXM4-80GB (RunPod Secure Cloud, USD 1.59 an hour), one request at a time. The
+summary is in [`runs/20261008T120934Z-http/eval_summary.json`](runs/20261008T120934Z-http/eval_summary.json).
 
-The evaluation scores the model against real labels:
+| Task | What the model sees | Items | Accuracy | Macro F1 | ECE |
+|---|---|---|---|---|---|
+| Lean | Photo | 474 | 82.9% | 0.79 | 0.19 |
+| Crossarm | Photo | 257 | 68.1% | 0.67 | 0.06 |
+| Vegetation | Photo | 457 | 70.2% | 0.70 | 0.02 |
+| Record health index (1 to 5) | Inspection record only | 500 | 69.0% | 0.62 | 0.17 |
 
-- **Lean, crossarm and vegetation** against the PD-Defect field labels.
-- **Record-only health** against the real inspector Health Index (1 to 5) on 4,800 timber
-  poles. The Health Index itself is never shown to the model, only the measurements behind it.
-- **Calibration**: when the model says 80 percent, is it right about 80 percent of the time?
-- **Speed and cost**: server time per decision, and cost per 1,000 poles at the GPU's hourly price.
+- **Labels.** Lean, crossarm and vegetation are scored against the PD-Defect field labels, on
+  balanced samples of up to 500 per task. The record task is scored against the inspector's
+  Health Index on 500 of the 4,800 timber poles (100 per level). The model never sees the Health
+  Index, only the measurements behind it.
+- **Macro F1** averages the score for each answer option, so a model that always guessed the
+  most common answer would score low even when its accuracy looked fine.
+- **Calibration.** ECE (expected calibration error) is the average gap between the model's
+  confidence and how often it is right, across confidence bands. Lower is better: 0.02 means
+  confidence and accuracy differ by about 2 percentage points on average.
+- **Speed.** Median model time, reported by the server, is 547 ms for a photo read (lean) and
+  101 ms for a record-only decision. A pole in the demo takes one photo read plus one decision
+  with the photo, record and policy: 1,096 ms on average over 400 poles.
+- **Cost.** At USD 1.59 an hour that is 3,285 poles an hour, or USD 0.48 (AUD 0.74) per 1,000
+  poles, counting GPU time only with requests back to back.
+- **Routing.** Of the 400 demo poles, 130 went to the engineer queue: the model's top action was
+  under 60 percent confident, or it asked for a reinspection.
 
 ## The demo
 
@@ -66,11 +89,24 @@ The evaluation scores the model against real labels:
 Toowoomba, Queensland:
 
 - **Live inspection**: each photo, the model reading it, the findings, the record and the
-  decision, first slowed down so you can follow it, then at real speed.
-- **Map**: every inspected pole turns red, amber, green or purple as it is decided.
+  decision, slowed down so you can follow it or at the measured real speed.
+- **Map**: every inspected pole turns into a replace, maintain, defer or engineer marker as it is
+  decided.
 - **Flip**: the same photo with two different records, and two different decisions.
 - **Engineer queue**: the cases the model was not sure about, lowest confidence first.
-- **Accuracy**: per-task accuracy, calibration and measured speed.
+- **Accuracy**: per-task accuracy, calibration, measured speed and cost.
+
+The recorded demo data (`demo/data/`) is not committed, because it carries 400 field photos and
+records derived from a dataset whose licence is not stated. A fresh clone shows the drawn sample
+data in `demo/sample/` instead, marked as sample illustrations, until you run
+`polehealth demo-data` against the model (see below). To open the page:
+
+```bash
+uv run python -m http.server 8000 -d demo    # then open http://127.0.0.1:8000/
+```
+
+`?autoplay=1&mode=real` starts the live inspection at real speed; `mode=explain` and `mode=ramp`
+slow it down.
 
 ## Quickstart
 
@@ -85,15 +121,15 @@ uv run polehealth build-register   # data/register.json: 1,191 Toowoomba poles w
 Then pick a backend for the model:
 
 - **Your own GPU** (one card with 80 GB or more): follow `scripts/gpu/RUNBOOK.md`. It runs the
-  official Maincode runtime and records speed numbers you can quote. We estimate a full run at
-  a few dollars of rented GPU time; the measured cost goes in the results section.
+  official Maincode runtime and records speed numbers you can quote. Our recorded run kept one
+  A100 rented for 42 minutes, setup included: about USD 1.11 at the listed hourly price.
 - **The public Hugging Face Space** (free, slow, good for trying it): set `HF_TOKEN`, install
   the extra with `uv sync --extra space`, and use `--backend space`. Space timings include
   queueing, so they are never reported as model speed.
 
 ```bash
 uv run polehealth eval --backend http --task all       # writes runs/<time>-http/
-uv run polehealth demo-data --backend http              # writes demo/data/
+uv run polehealth demo-data --backend http --run runs/<time>-http --inspect 400   # writes demo/data/
 uv run polehealth serve --backend http                  # http://127.0.0.1:8000, with "Try a photo"
 ```
 
@@ -105,7 +141,7 @@ uv run polehealth serve --backend http                  # http://127.0.0.1:8000,
 |---|---|---|
 | Pole photos and labels | [PD-Defect](https://huggingface.co/datasets/EPDCL/pd-defect), field photos by APEPDCL, Andhra Pradesh, India | CC BY 4.0 |
 | Pole locations | OpenStreetMap `power=pole` nodes, Toowoomba, QLD | ODbL, © OpenStreetMap contributors |
-| Inspection histories | Western red cedar 50 ft pole inspections, Utility Analytics Network on Kaggle (Canada) | Not stated; downloaded at build time, not redistributed |
+| Inspection histories | Western red cedar 50 ft pole inspections, Utility Analytics Network on Kaggle (Canada) | Not stated by the publisher; downloaded at build time, not redistributed |
 
 The locations, photos and inspection records are all real. The pairing between them is
 synthetic: no public dataset links a pole's photo to that pole's history, so each Toowoomba
@@ -119,7 +155,8 @@ fleet is timber. Full details are in [DATA_SOURCES.md](DATA_SOURCES.md).
 ```
 src/polehealth/   questions, model backends, data sources, register, evaluation, demo data, local server
 scripts/gpu/      setup script and runbook for a rented GPU
-demo/             static demo page
+demo/             static demo page (sample data committed; real data generated by demo-data)
+docs/media/       demo video and poster
 tests/            pytest suite, no network needed
 docs/spec.md      build spec and data contract
 ```

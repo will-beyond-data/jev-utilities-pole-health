@@ -10,13 +10,13 @@ terminated, and a first demo video exists. The first version was built by a clou
 | Python pipeline (`src/polehealth`) | Built. 91 tests pass, ruff clean. Run end to end against the real model on an A100. |
 | Data sources | All six fetch and work: PD-Defect lean, crossarm, vegetation; Kaggle wrc50 and wrc45 (no login needed); OSM Toowoomba poles (extract committed). |
 | Register | 1,191 Toowoomba poles, deterministic (seed 7). Rebuild with `polehealth build-register`. |
-| Demo page (`demo/`) | Live inspection (hero view, Explain / Real speed / Ramp pacing, `?autoplay=1&mode=ramp`), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Checked on real data in Chromium at 1920x1080. |
+| Demo page (`demo/`) | Live inspection (hero view, Explain / Real speed / Ramp pacing, `?autoplay=1&mode=real`), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Beyond Data brand applied 2026-10-08 (brand guidelines, April 2026). Checked on real data in Chromium at 1920x1080, light and dark. |
 | Local server (`polehealth serve`) | Built and tested with the mock backend. Not yet used against the real model. |
 | GPU runbook (`scripts/gpu/`) | Proven on RunPod, 2026-10-08: setup took about 10 minutes, model ready 90 s after start. |
 | Real model output | Recorded run `runs/20261008T120934Z-http` (A100-SXM4-80GB, RunPod Secure Cloud, USD 1.59/hr): lean 82.9% (n 474), crossarm 68.1% (n 257), vegetation 70.2% (n 457), record health 69.0% (n 500); median model time 547 ms per lean photo pass, mean 1,096 ms per demo pole (photo read + decision); USD 0.48 per 1,000 poles. `demo/data/` holds 400 real decisions (130 to the engineer queue). Both are gitignored or uncommitted, see next steps. |
 | Spend | One pod, 42 minutes at USD 1.59/hr, about USD 1.11 (AUD 1.70) plus disk. Terminated; no pods left. |
-| Demo video | `runs/20261008T120934Z-http/pole-health-demo.mp4` (78 s, 1920x1080), recorded headless from the real data with a scripted Chromium screencast. Not committed. |
-| README | Drafted. Results section still empty. Not yet brand-reviewed. |
+| Demo video | Final cuts (Will's order: map 10 s, live inspection at real speed 20 s, engineer queue 15 s): `runs/20261008T120934Z-http/pole-health-demo-16x9.mp4` (YouTube, watermark bottom right) and `pole-health-demo-linkedin-4x5.mp4` (LinkedIn feed, headline and stats bands), not committed. A 720p copy and a poster frame are committed in `docs/media/` for the README. Recorded headless with a scripted Chromium screencast and ffmpeg. |
+| README | Results filled from the recorded run, brand-reviewed. |
 
 ## Decisions already made (do not re-ask)
 
@@ -34,6 +34,11 @@ terminated, and a first demo video exists. The first version was built by a clou
 - **Unusable photos are excluded (Will, 2026-10-08):** PD-Defect's lean `Rejected` folder (blurred,
   blocked, pole too far away) is not used in the benchmark or demo. `cannot_assess` stays as an answer
   option so a bad uploaded photo routes to an engineer.
+- **Demo data is not committed (Will, 2026-10-08).** `demo/data/` is gitignored; a fresh clone shows `demo/sample/`
+  until `polehealth demo-data` runs. The Kaggle records stay "licence unknown, disclosed" (Will chose to publish
+  and disclose).
+- **Brand:** the demo page follows the Beyond Data brand guidelines (April 2026): Graphite core palette, Switzer and
+  JetBrains Mono, the six-node logo, Signal colours for data only.
 - **Video:** opens on the Live inspection view: real photo, an abstract processing sweep with a
   millisecond timer, findings bars, record card, decision stamp with measured times, mini-map dot.
   "Ramp" mode: three poles slowed down with the real ms shown, then real speed.

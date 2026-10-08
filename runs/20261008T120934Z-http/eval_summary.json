@@ -1,0 +1,415 @@
+{
+  "backend": "http",
+  "mock": false,
+  "model": "matilda-jev-v1",
+  "hardware": "1x NVIDIA A100-SXM4-80GB (RunPod Secure Cloud)",
+  "recorded_at": "2026-10-08T12:24:06+00:00",
+  "started_at": "2026-10-08T12:09:34+00:00",
+  "limit": 500,
+  "seed": 7,
+  "tasks": {
+    "lean": {
+      "n": 474,
+      "labels": [
+        "straight",
+        "leaning",
+        "cannot_assess"
+      ],
+      "support": {
+        "leaning": 155,
+        "straight": 319
+      },
+      "accuracy": 0.8291,
+      "macro_f1": 0.7872,
+      "confusion": {
+        "straight": {
+          "straight": 303,
+          "leaning": 15,
+          "cannot_assess": 1
+        },
+        "leaning": {
+          "straight": 65,
+          "leaning": 90,
+          "cannot_assess": 0
+        },
+        "cannot_assess": {
+          "straight": 0,
+          "leaning": 0,
+          "cannot_assess": 0
+        }
+      },
+      "ece": 0.1871,
+      "reliability": [
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "count": 42,
+          "mean_confidence": 0.47,
+          "accuracy": 0.5714
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "count": 134,
+          "mean_confidence": 0.5566,
+          "accuracy": 0.7537
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "count": 194,
+          "mean_confidence": 0.6438,
+          "accuracy": 0.8866
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "count": 53,
+          "mean_confidence": 0.7279,
+          "accuracy": 0.9245
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "count": 22,
+          "mean_confidence": 0.8555,
+          "accuracy": 0.8636
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "count": 29,
+          "mean_confidence": 0.9557,
+          "accuracy": 0.9655
+        }
+      ],
+      "latency_ms": {
+        "p50": 552.4257,
+        "p90": 579.1341,
+        "p99": 596.1768
+      },
+      "model_ms": {
+        "p50": 547.25,
+        "p90": 574.87,
+        "p99": 591.205
+      },
+      "errors": 0,
+      "backend": "http",
+      "hardware": "1x NVIDIA A100-SXM4-80GB (RunPod Secure Cloud)",
+      "recorded_at": "2026-10-08T12:14:37+00:00"
+    },
+    "crossarm": {
+      "n": 257,
+      "labels": [
+        "straight",
+        "tilted",
+        "not_visible"
+      ],
+      "support": {
+        "tilted": 145,
+        "straight": 112
+      },
+      "accuracy": 0.6809,
+      "macro_f1": 0.6743,
+      "confusion": {
+        "straight": {
+          "straight": 64,
+          "tilted": 48,
+          "not_visible": 0
+        },
+        "tilted": {
+          "straight": 31,
+          "tilted": 111,
+          "not_visible": 3
+        },
+        "not_visible": {
+          "straight": 0,
+          "tilted": 0,
+          "not_visible": 0
+        }
+      },
+      "ece": 0.056,
+      "reliability": [
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "count": 25,
+          "mean_confidence": 0.4783,
+          "accuracy": 0.6
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "count": 98,
+          "mean_confidence": 0.5474,
+          "accuracy": 0.6327
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "count": 63,
+          "mean_confidence": 0.6521,
+          "accuracy": 0.6825
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "count": 47,
+          "mean_confidence": 0.7487,
+          "accuracy": 0.7447
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "count": 20,
+          "mean_confidence": 0.8383,
+          "accuracy": 0.85
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "count": 4,
+          "mean_confidence": 0.9122,
+          "accuracy": 0.75
+        }
+      ],
+      "latency_ms": {
+        "p50": 540.4667,
+        "p90": 551.465,
+        "p99": 576.9151
+      },
+      "model_ms": {
+        "p50": 537.7,
+        "p90": 547.26,
+        "p99": 573.336
+      },
+      "errors": 0,
+      "backend": "http",
+      "hardware": "1x NVIDIA A100-SXM4-80GB (RunPod Secure Cloud)",
+      "recorded_at": "2026-10-08T12:17:11+00:00"
+    },
+    "vegetation": {
+      "n": 457,
+      "labels": [
+        "clear",
+        "encroaching",
+        "not_visible"
+      ],
+      "support": {
+        "encroaching": 211,
+        "clear": 246
+      },
+      "accuracy": 0.7024,
+      "macro_f1": 0.7031,
+      "confusion": {
+        "clear": {
+          "clear": 163,
+          "encroaching": 83,
+          "not_visible": 0
+        },
+        "encroaching": {
+          "clear": 52,
+          "encroaching": 158,
+          "not_visible": 1
+        },
+        "not_visible": {
+          "clear": 0,
+          "encroaching": 0,
+          "not_visible": 0
+        }
+      },
+      "ece": 0.0219,
+      "reliability": [
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "count": 7,
+          "mean_confidence": 0.4924,
+          "accuracy": 0.5714
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "count": 99,
+          "mean_confidence": 0.5528,
+          "accuracy": 0.5758
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "count": 121,
+          "mean_confidence": 0.6477,
+          "accuracy": 0.6446
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "count": 99,
+          "mean_confidence": 0.7503,
+          "accuracy": 0.7172
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "count": 91,
+          "mean_confidence": 0.8408,
+          "accuracy": 0.8462
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "count": 40,
+          "mean_confidence": 0.9266,
+          "accuracy": 0.85
+        }
+      ],
+      "latency_ms": {
+        "p50": 557.3126,
+        "p90": 590.8866,
+        "p99": 598.7037
+      },
+      "model_ms": {
+        "p50": 551.7,
+        "p90": 585.54,
+        "p99": 593.488
+      },
+      "errors": 0,
+      "backend": "http",
+      "hardware": "1x NVIDIA A100-SXM4-80GB (RunPod Secure Cloud)",
+      "recorded_at": "2026-10-08T12:23:13+00:00"
+    },
+    "record_health_index": {
+      "n": 500,
+      "labels": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "support": {
+        "1": 100,
+        "2": 100,
+        "3": 100,
+        "4": 100,
+        "5": 100
+      },
+      "accuracy": 0.69,
+      "macro_f1": 0.6188,
+      "confusion": {
+        "1": {
+          "1": 100,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "2": {
+          "1": 100,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "3": {
+          "1": 2,
+          "2": 0,
+          "3": 98,
+          "4": 0,
+          "5": 0
+        },
+        "4": {
+          "1": 0,
+          "2": 0,
+          "3": 5,
+          "4": 95,
+          "5": 0
+        },
+        "5": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 48,
+          "5": 52
+        }
+      },
+      "ece": 0.1663,
+      "reliability": [
+        {
+          "lo": 0.3,
+          "hi": 0.4,
+          "count": 2,
+          "mean_confidence": 0.3781,
+          "accuracy": 1.0
+        },
+        {
+          "lo": 0.4,
+          "hi": 0.5,
+          "count": 121,
+          "mean_confidence": 0.4648,
+          "accuracy": 0.5455
+        },
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "count": 78,
+          "mean_confidence": 0.5498,
+          "accuracy": 0.8333
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "count": 101,
+          "mean_confidence": 0.6389,
+          "accuracy": 0.802
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "count": 74,
+          "mean_confidence": 0.7442,
+          "accuracy": 0.6216
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "count": 73,
+          "mean_confidence": 0.8513,
+          "accuracy": 0.6301
+        },
+        {
+          "lo": 0.9,
+          "hi": 1.0,
+          "count": 51,
+          "mean_confidence": 0.9288,
+          "accuracy": 0.7647
+        }
+      ],
+      "latency_ms": {
+        "p50": 101.9834,
+        "p90": 104.4525,
+        "p99": 126.8354
+      },
+      "model_ms": {
+        "p50": 101.0,
+        "p90": 103.04,
+        "p99": 125.107
+      },
+      "errors": 0,
+      "backend": "http",
+      "hardware": "1x NVIDIA A100-SXM4-80GB (RunPod Secure Cloud)",
+      "recorded_at": "2026-10-08T12:24:06+00:00"
+    }
+  },
+  "cost": {
+    "gpu_hourly_usd": 1.59,
+    "aud_per_usd": 1.52,
+    "basis": "v1 + v2 per pole (demo decisions)",
+    "n_poles": 400,
+    "mean_model_ms_per_pole": 1095.83,
+    "decisions_per_hour": 3285,
+    "usd_per_1000_poles": 0.484,
+    "aud_per_1000_poles": 0.7357,
+    "note": "Assumes the GPU is busy with back-to-back requests. Idle time, model load and image upload are not counted."
+  }
+}
