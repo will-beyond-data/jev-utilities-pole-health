@@ -173,7 +173,7 @@ function v1Block(d) {
 function recordRows(rec) {
   if (!rec) return [];
   const since = rec.years_since_maintenance;
-  const crit = rec.critical_customer ? `Yes: ${rec.critical_customer_type || 'critical customer'}` : 'No';
+  const crit = rec.critical_customer ? `Yes: ${words(rec.critical_customer_type || 'critical customer')}` : 'No';
   return [
     ['age', 'Age', num(rec.age_years) === null ? '-' : `${rec.age_years} years`],
     ['install', 'Installed', rec.install_year ?? '-'],
@@ -503,7 +503,7 @@ function flipExplanation(F) {
   if (num(a.age_years) !== null && a.age_years !== b.age_years) bits.push(`${a.age_years} against ${b.age_years} years old`);
   if (num(a.shell_thickness_change_10y) !== null && a.shell_thickness_change_10y !== b.shell_thickness_change_10y) bits.push(`shell thickness ${signedPct(a.shell_thickness_change_10y)} against ${signedPct(b.shell_thickness_change_10y)} over ten years`);
   if (a.bushfire_zone !== b.bushfire_zone) bits.push(`${a.bushfire_zone} against ${b.bushfire_zone} bushfire zone`);
-  if (a.critical_customer !== b.critical_customer) bits.push(`${a.critical_customer ? a.critical_customer_type : 'no critical customer'} against ${b.critical_customer ? b.critical_customer_type : 'no critical customer'}`);
+  if (a.critical_customer !== b.critical_customer) bits.push(`${a.critical_customer ? words(a.critical_customer_type) : 'no critical customer'} against ${b.critical_customer ? words(b.critical_customer_type) : 'no critical customer'}`);
   if (a.years_since_maintenance !== b.years_since_maintenance) bits.push(`maintained ${a.years_since_maintenance ?? 'never'} against ${b.years_since_maintenance ?? 'never'} years ago`);
   const [da, db] = F.sides.map((s) => s.d.action);
   return clean(`Same photo, different record: ${bits.slice(0, 4).join('; ')}. The model says ${da} for one and ${db} for the other.`);
@@ -648,7 +648,7 @@ function renderAccuracy() {
     conf = `<div class="card"><h3>Confusion, ${esc(T.name)}</h3><div class="sub">Rows are the true label, columns are the model's answer.</div>
       <table class="tbl"><thead><tr><th>true \\ model</th>${cols.map((c) => `<th>${esc(words(c))}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => {
         const tot = cols.reduce((a, c) => a + (T.confusion[r][c] || 0), 0) || 1;
-        return `<tr><td>${esc(words(r))}</td>${cols.map((c) => { const v = T.confusion[r][c] || 0; return `<td class="cell" style="--o:${((v / tot) * 0.5).toFixed(2)}"><span ${c === r ? 'style="font-weight:700"' : ''}>${v}</span></td>`; }).join('')}</tr>`;
+        return `<tr><td>${esc(words(r))}</td>${cols.map((c) => { const v = T.confusion[r][c] || 0; return `<td class="cell" style="--o:${((v / tot) * 0.5).toFixed(2)}"><span ${c === r ? 'style="font-weight:500"' : ''}>${v}</span></td>`; }).join('')}</tr>`;
       }).join('')}</tbody></table></div>`;
   }
   const cost = E.cost ? `<div class="card"><h3>Cost of the recorded run</h3><div class="sub">From the recorded GPU run, not an estimate.</div><div class="costs">
