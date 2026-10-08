@@ -1,7 +1,7 @@
 # Handoff: status, decisions, research, next steps
 
-Last updated 2026-10-08 by the cloud session that built the first version. Will is picking this up in
-a local Claude Code session on his own machine, where his tokens live.
+Last updated 2026-10-08 by Will's local session (local setup done, first Space answers, Rejected lean
+photos excluded). The first version was built by a cloud session.
 
 ## Status at a glance
 
@@ -13,7 +13,7 @@ a local Claude Code session on his own machine, where his tokens live.
 | Demo page (`demo/`) | Live inspection (default tab, the video hero shot, with Explain / Real speed / Ramp pacing, `?autoplay=1&mode=ramp`, keyboard shortcuts), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Screenshot-checked in Chromium at 1920x1080 and 1366x768, light and dark, on sample data only. Never run against real pipeline output yet. |
 | Local server (`polehealth serve`) | Built and tested with the mock backend. |
 | GPU runbook (`scripts/gpu/`) | Written for RunPod. `setup.sh` is syntax-checked only; it has never run on a GPU. |
-| Real model output | **None yet.** No call to Matilda Jev has succeeded from this project. The first one is the next step. |
+| Real model output | First 8 answers via the Space on 2026-10-08 (`runs/20261008T113737Z-space`, gitignored): 3 of 7 lean photos right, every miss was a Rejected photo or a slight lean. Then the free ZeroGPU quota ran out. No RunPod spend yet (billing checked: USD 0). |
 | README | Drafted. Results section deliberately empty until a real run exists. Not yet brand-reviewed. |
 
 ## Decisions already made (do not re-ask)
@@ -29,6 +29,9 @@ a local Claude Code session on his own machine, where his tokens live.
 - **Budget:** under AUD 20 total, including RunPod's minimum credit top-up (about USD 10; confirm).
 - **Repo:** `will-beyond-data/jev-utilities-pole-health`, private until Will approves going public.
 - **UI:** no MOCK banner (Will's call). Mock data is for development only and must never be filmed.
+- **Unusable photos are excluded (Will, 2026-10-08):** PD-Defect's lean `Rejected` folder (blurred,
+  blocked, pole too far away) is not used in the benchmark or demo. `cannot_assess` stays as an answer
+  option so a bad uploaded photo routes to an engineer.
 - **Video:** opens on the Live inspection view: real photo, an abstract processing sweep with a
   millisecond timer, findings bars, record card, decision stamp with measured times, mini-map dot.
   "Ramp" mode: three poles slowed down with the real ms shown, then real speed.
@@ -42,6 +45,10 @@ a local Claude Code session on his own machine, where his tokens live.
    `uv run polehealth eval --backend space --task all --limit 10`. The anonymous Space quota was
    exhausted from the cloud container, so a token is required. Free accounts get limited ZeroGPU
    minutes per day.
+   **2026-10-08 result:** a free HF account ran out of ZeroGPU quota after 8 calls, too few to judge the
+   wording. Remaining crossarm, vegetation and record checks were not scored. Start a fresh run rather
+   than resuming that one (it holds 3 Rejected rows, now excluded), or do the wording check as the first
+   part of the RunPod session (Will to decide).
 3. **Check the questions before paying for GPU time.** Look at the Space answers. If accuracy on
    lean, crossarm or vegetation is poor, iterate on the wording in `src/polehealth/questions.py`
    (the only place prompts live) against the Space, which is free. Ignore Space latency.

@@ -29,8 +29,8 @@ raw data into `data/raw/`, which is gitignored.
 - Changes made: images are resized to a maximum edge of 960 px and re-encoded as JPEG (quality 80) for the demo.
   The copies sent to the model are resized to a maximum edge of 1024 px.
 - Labels used:
-  - Lean: `Leaned`, `Straight`, `Rejected` map to `leaning`, `straight`, `cannot_assess`. `Rejected` means the top or
-    base is hidden, the viewpoint is distorted or the alignment is ambiguous.
+  - Lean: `Leaned` and `Straight` map to `leaning` and `straight`. The dataset's `Rejected` photos are not used:
+    they are unusable inspection photos (blurred, blocked, or the pole too small or far away to judge).
   - Crossarm: the dataset gives YOLO boxes with six classes (`crossarm`, `topcleat`, `v-crossarm`, each `_straight`
     or `_tilted`). This repo derives an image-level label: `tilted` if any box is a tilted class, otherwise
     `straight`. That derivation is ours, not the dataset's.

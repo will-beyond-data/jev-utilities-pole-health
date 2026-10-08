@@ -78,7 +78,7 @@ Reference runtime source (do not vendor, read only): `../mj/runtime/maincode_jev
 
 | Key | Source | Licence | Committed to repo? |
 |---|---|---|---|
-| `pd_lean` | EPDCL/pd-defect `pole_lean_assessment/classification/{test,val}` (Leaned / Straight / Rejected) | CC-BY-4.0 | Resized demo subset yes (max edge 960) |
+| `pd_lean` | EPDCL/pd-defect `pole_lean_assessment/classification/{test,val}` (Leaned / Straight; Rejected is excluded as unusable photos) | CC-BY-4.0 | Resized demo subset yes (max edge 960) |
 | `pd_crossarm` | EPDCL/pd-defect `crossarm_top_cleat_tilt_assessment/object_detection/test` (YOLO boxes, classes in data.yaml) | CC-BY-4.0 | Resized demo subset yes |
 | `pd_vegetation` | EPDCL/pd-defect `vegetation_conductor` validation images + `GT_ValidationSet.csv` (Risky / Safe) | CC-BY-4.0 | Resized demo subset yes |
 | `osm_toowoomba` | OpenStreetMap `node[power=pole]` in bbox (-27.62,151.88,-27.50,152.02), ~1,191 poles | ODbL, "© OpenStreetMap contributors" | Yes (derived positions, ODbL notice) |
@@ -168,6 +168,8 @@ Same shape as one decisions entry per side, plus the two records.
 v1 state: `{"asset": "electricity distribution pole", "image": "ground-level inspection photo"}`.
 v1 questions:
 - `lean` choice: straight / leaning / cannot_assess (pole top or base hidden, or angle too distorted).
+  The benchmark scores only straight and leaning photos; cannot_assess stays as an answer so a bad
+  uploaded photo routes to an engineer.
 - `crossarm` choice: straight / tilted / not_visible.
 - `vegetation` choice: clear / encroaching (vegetation touching or within reach of conductors) / not_visible.
 - `health` score, lowest first: ["critical: imminent failure risk", "poor: significant defects", "fair: some defects", "good: minor wear", "as new"].
