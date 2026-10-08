@@ -6,10 +6,10 @@ asset record, and recommends replace / maintain / defer / reinspect, with low-co
 to an engineer queue. The goal is a great demo video and content about what Jev-style decision models
 can do. It is not a production system.
 
-**Start every session by reading [docs/handoff.md](docs/handoff.md).** It holds the current status,
+**Start every session by reading `docs/handoff.md`** (local only, gitignored). It holds the current status,
 the decisions already made (do not re-ask them), the research behind them, and the next steps in
 order. [docs/spec.md](docs/spec.md) is the build spec and the data contract between the Python
-pipeline and the demo page. Keep both current in the same commit as any change that affects them.
+pipeline and the demo page. Keep both current alongside any change that affects them.
 
 ## Hard rules (Will's standing rules)
 
