@@ -173,7 +173,7 @@ function v1Block(d) {
 function recordRows(rec) {
   if (!rec) return [];
   const since = rec.years_since_maintenance;
-  const crit = rec.critical_customer ? `Yes: ${rec.critical_customer_type || 'critical customer'}` : 'No';
+  const crit = rec.critical_customer ? `Yes: ${words(rec.critical_customer_type || 'critical customer')}` : 'No';
   return [
     ['age', 'Age', num(rec.age_years) === null ? '-' : `${rec.age_years} years`],
     ['install', 'Installed', rec.install_year ?? '-'],
@@ -503,7 +503,7 @@ function flipExplanation(F) {
   if (num(a.age_years) !== null && a.age_years !== b.age_years) bits.push(`${a.age_years} against ${b.age_years} years old`);
   if (num(a.shell_thickness_change_10y) !== null && a.shell_thickness_change_10y !== b.shell_thickness_change_10y) bits.push(`shell thickness ${signedPct(a.shell_thickness_change_10y)} against ${signedPct(b.shell_thickness_change_10y)} over ten years`);
   if (a.bushfire_zone !== b.bushfire_zone) bits.push(`${a.bushfire_zone} against ${b.bushfire_zone} bushfire zone`);
-  if (a.critical_customer !== b.critical_customer) bits.push(`${a.critical_customer ? a.critical_customer_type : 'no critical customer'} against ${b.critical_customer ? b.critical_customer_type : 'no critical customer'}`);
+  if (a.critical_customer !== b.critical_customer) bits.push(`${a.critical_customer ? words(a.critical_customer_type) : 'no critical customer'} against ${b.critical_customer ? words(b.critical_customer_type) : 'no critical customer'}`);
   if (a.years_since_maintenance !== b.years_since_maintenance) bits.push(`maintained ${a.years_since_maintenance ?? 'never'} against ${b.years_since_maintenance ?? 'never'} years ago`);
   const [da, db] = F.sides.map((s) => s.d.action);
   return clean(`Same photo, different record: ${bits.slice(0, 4).join('; ')}. The model says ${da} for one and ${db} for the other.`);
@@ -648,7 +648,7 @@ function renderAccuracy() {
     conf = `<div class="card"><h3>Confusion, ${esc(T.name)}</h3><div class="sub">Rows are the true label, columns are the model's answer.</div>
       <table class="tbl"><thead><tr><th>true \\ model</th>${cols.map((c) => `<th>${esc(words(c))}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => {
         const tot = cols.reduce((a, c) => a + (T.confusion[r][c] || 0), 0) || 1;
-        return `<tr><td>${esc(words(r))}</td>${cols.map((c) => { const v = T.confusion[r][c] || 0; return `<td class="cell" style="--o:${((v / tot) * 0.5).toFixed(2)}"><span ${c === r ? 'style="font-weight:700"' : ''}>${v}</span></td>`; }).join('')}</tr>`;
+        return `<tr><td>${esc(words(r))}</td>${cols.map((c) => { const v = T.confusion[r][c] || 0; return `<td class="cell" style="--o:${((v / tot) * 0.5).toFixed(2)}"><span ${c === r ? 'style="font-weight:500"' : ''}>${v}</span></td>`; }).join('')}</tr>`;
       }).join('')}</tbody></table></div>`;
   }
   const cost = E.cost ? `<div class="card"><h3>Cost of the recorded run</h3><div class="sub">From the recorded GPU run, not an estimate.</div><div class="costs">
@@ -803,6 +803,7 @@ function setStep(name) {
 const setTimerText = (s) => { el$.lvTimer.textContent = s || ''; };
 
 function clearCards() {
+  [el$.cardV1, el$.cardRec, el$.cardDec].forEach((c) => c.classList.remove('stale'));
   el$.cardV1.innerHTML = '<h3>What the model reads in the photo</h3><p class="wait">Waiting for the photo read.</p>';
   el$.cardRec.innerHTML = '<h3>Asset record</h3><p class="wait">Checked after the photo.</p>';
   el$.cardDec.innerHTML = '<h3>Decision</h3><p class="wait">Photo and record together decide the action.</p>';
@@ -828,6 +829,7 @@ function showStage(it, dur) {
 }
 function showV1(it, dur) {
   const d = it.d, a = animOf(dur), card = el$.cardV1;
+  card.classList.remove('stale');
   card.style.setProperty('--anim', a + 'ms');
   const cols = [['lean', 'Lean'], ['crossarm', 'Crossarm'], ['vegetation', 'Vegetation']].map(([k, name]) => {
     const ans = answerOf(d, 'v1', k);
@@ -850,6 +852,7 @@ function showV1(it, dur) {
 }
 function showRecord(it, dur) {
   const card = el$.cardRec, rec = it.rec, a = animOf(dur);
+  card.classList.remove('stale');
   card.style.setProperty('--anim', a + 'ms');
   card.classList.remove('slide');
   if (!rec) { card.innerHTML = '<h3>Asset record</h3><p class="wait">No record paired with this photo. The answer comes from the photo alone.</p>'; return; }
@@ -861,6 +864,7 @@ function showRecord(it, dur) {
 }
 function showDecision(it) {
   const d = it.d, card = el$.cardDec, a = passMs(d.v1), b = passMs(d.v2);
+  card.classList.remove('stale');
   card.style.setProperty('--anim', Math.min(500, animOf(LV.sched[LV.phase] ? LV.sched[LV.phase].dur : 0)) + 'ms');
   const times = [a !== null ? `Photo read: ${rnd(a)} ms` : '', b !== null ? `Decision: ${rnd(b)} ms` : ''].filter(Boolean).join(', ');
   if (!d.action) {
@@ -979,7 +983,8 @@ function enter(i) {
   switch (ph.name) {
     case 'in':
       showStage(it, ph.dur);
-      if (LV.t < 0.5) clearCards();
+      // At speed the cards are not blanked (that flickers), so the last pole's results are dimmed until replaced.
+      if (LV.t < 0.5) clearCards(); else [el$.cardV1, el$.cardRec, el$.cardDec].forEach((c) => c.classList.add('stale'));
       if (!it.custom) { miniActive(it.id); filmUpdate(); preload(LV.idx + 1); } else miniActive(null);
       setTimerText('');
       break;

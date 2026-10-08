@@ -1,0 +1,16 @@
+{
+  "backend": "http",
+  "model": "matilda-jev-v1",
+  "hardware": "1x NVIDIA A100-SXM4-80GB (RunPod Secure Cloud)",
+  "base_url": "http://127.0.0.1:8083",
+  "tasks": [
+    "crossarm",
+    "lean",
+    "record_health_index",
+    "vegetation"
+  ],
+  "limit": 500,
+  "seed": 7,
+  "started_at": "2026-10-08T12:09:34+00:00",
+  "polehealth_version": "0.1.0"
+}

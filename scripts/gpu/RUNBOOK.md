@@ -39,7 +39,7 @@ Decide the hard stop in advance: write down the time you will terminate the pod,
    fine. Anything under 80 GB will not hold the model. The 27B model in bf16 needs about 54 GB for weights plus room
    for activations.
 5. Template: any recent RunPod PyTorch template on Ubuntu 22.04 or 24.04. Under additional filters, pick a machine
-   whose driver reports CUDA 12.8 or newer if you can; otherwise you will use an older `CUDA_INDEX` (see section 3).
+   whose driver reports CUDA 12.6 or newer (see section 3 for the wheel index).
    The template's own PyTorch is not used. `setup.sh` builds its own Python 3.12 environment.
 6. Disk: set container disk plus volume disk to at least 120 GB in total (for example 40 GB container and 100 GB
    volume). Weights are about 54 GB, the Python environment about 10 GB, the pd-defect images about 2 GB, and the
@@ -61,8 +61,8 @@ cd /workspace/jev-utilities-pole-health
 bash scripts/gpu/setup.sh
 ```
 
-If `nvidia-smi` reports a CUDA version below 12.8, run `CUDA_INDEX=https://download.pytorch.org/whl/cu126 bash
-scripts/gpu/setup.sh` (or the cuXXX that matches). The script checks the GPU, installs uv, builds the Python 3.12
+The default wheel index is cu126, which runs on any driver reporting CUDA 12.6 or newer. PyTorch publishes
+`torch==2.14.0` for cu126 and cu130 only, so there is no cu128 option (found on the first run, 2026-10-08). The script checks the GPU, installs uv, builds the Python 3.12
 environment, installs `torch==2.14.0` and `torchvision==0.29.0`, downloads the weights, installs
 `requirements-runtime.txt`, generates `MJ_API_KEY` into `$WORKDIR/mj_api_key`, starts the server on port 8083, waits
 for `/health`, and sends one smoke-test request. Expect 15 to 40 minutes on the first run, mostly the download and

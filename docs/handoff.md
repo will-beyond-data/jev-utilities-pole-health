@@ -1,20 +1,22 @@
 # Handoff: status, decisions, research, next steps
 
-Last updated 2026-10-08 by the cloud session that built the first version. Will is picking this up in
-a local Claude Code session on his own machine, where his tokens live.
+Last updated 2026-10-08 by Will's local session: the measured RunPod run is done, the pod is
+terminated, and a first demo video exists. The first version was built by a cloud session.
 
 ## Status at a glance
 
 | Piece | State |
 |---|---|
-| Python pipeline (`src/polehealth`) | Built. 91 tests pass, ruff clean. Verified end to end with the mock backend only. |
+| Python pipeline (`src/polehealth`) | Built. 91 tests pass, ruff clean. Run end to end against the real model on an A100. |
 | Data sources | All six fetch and work: PD-Defect lean, crossarm, vegetation; Kaggle wrc50 and wrc45 (no login needed); OSM Toowoomba poles (extract committed). |
 | Register | 1,191 Toowoomba poles, deterministic (seed 7). Rebuild with `polehealth build-register`. |
-| Demo page (`demo/`) | Live inspection (default tab, the video hero shot, with Explain / Real speed / Ramp pacing, `?autoplay=1&mode=ramp`, keyboard shortcuts), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Screenshot-checked in Chromium at 1920x1080 and 1366x768, light and dark, on sample data only. Never run against real pipeline output yet. |
-| Local server (`polehealth serve`) | Built and tested with the mock backend. |
-| GPU runbook (`scripts/gpu/`) | Written for RunPod. `setup.sh` is syntax-checked only; it has never run on a GPU. |
-| Real model output | **None yet.** No call to Matilda Jev has succeeded from this project. The first one is the next step. |
-| README | Drafted. Results section deliberately empty until a real run exists. Not yet brand-reviewed. |
+| Demo page (`demo/`) | Live inspection (hero view, Explain / Real speed / Ramp pacing, `?autoplay=1&mode=real`), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Beyond Data brand applied 2026-10-08 (brand guidelines, April 2026). Checked on real data in Chromium at 1920x1080, light and dark. |
+| Local server (`polehealth serve`) | Built and tested with the mock backend. Not yet used against the real model. |
+| GPU runbook (`scripts/gpu/`) | Proven on RunPod, 2026-10-08: setup took about 10 minutes, model ready 90 s after start. |
+| Real model output | Recorded run `runs/20261008T120934Z-http` (A100-SXM4-80GB, RunPod Secure Cloud, USD 1.59/hr): lean 82.9% (n 474), crossarm 68.1% (n 257), vegetation 70.2% (n 457), record health 69.0% (n 500); median model time 547 ms per lean photo pass, mean 1,096 ms per demo pole (photo read + decision); USD 0.48 per 1,000 poles. The run summary (`eval_summary.json`, `run.json`) is committed; the raw `results.jsonl` is not. `demo/data/` holds 400 real decisions (130 to the engineer queue) and stays gitignored. |
+| Spend | One pod, 42 minutes at USD 1.59/hr, about USD 1.11 (AUD 1.70) plus disk. Terminated; no pods left. |
+| Demo video | Final cuts (Will's order: map 10 s, live inspection at real speed 20 s, engineer queue 15 s): `runs/20261008T120934Z-http/pole-health-demo-16x9.mp4` (YouTube, watermark bottom right) and `pole-health-demo-linkedin-4x5.mp4` (LinkedIn feed, headline and stats bands), not committed. A 720p copy and a poster frame are committed in `docs/media/` for the README. Recorded headless with a scripted Chromium screencast and ffmpeg. |
+| README | Results filled from the recorded run, brand-reviewed. |
 
 ## Decisions already made (do not re-ask)
 
@@ -29,51 +31,41 @@ a local Claude Code session on his own machine, where his tokens live.
 - **Budget:** under AUD 20 total, including RunPod's minimum credit top-up (about USD 10; confirm).
 - **Repo:** `will-beyond-data/jev-utilities-pole-health`, private until Will approves going public.
 - **UI:** no MOCK banner (Will's call). Mock data is for development only and must never be filmed.
+- **Unusable photos are excluded (Will, 2026-10-08):** PD-Defect's lean `Rejected` folder (blurred,
+  blocked, pole too far away) is not used in the benchmark or demo. `cannot_assess` stays as an answer
+  option so a bad uploaded photo routes to an engineer.
+- **Demo data is not committed (Will, 2026-10-08).** `demo/data/` is gitignored; a fresh clone shows `demo/sample/`
+  until `polehealth demo-data` runs. The Kaggle records stay "licence unknown, disclosed" (Will chose to publish
+  and disclose).
+- **Brand:** the demo page follows the Beyond Data brand guidelines (April 2026): Graphite core palette, Switzer and
+  JetBrains Mono, the six-node logo, Signal colours for data only.
 - **Video:** opens on the Live inspection view: real photo, an abstract processing sweep with a
   millisecond timer, findings bars, record card, decision stamp with measured times, mini-map dot.
   "Ramp" mode: three poles slowed down with the real ms shown, then real speed.
 
 ## Next steps, in order
 
-1. **Local setup.** `uv sync --extra space`, `uv run pytest -q`, `uv run polehealth fetch`,
-   `uv run polehealth build-register`.
-2. **First real answers, free, via the Hugging Face Space.** With `HF_TOKEN` set:
-   `uv run polehealth ask --backend space --image <a PD-Defect Leaned photo from data/raw>` then
-   `uv run polehealth eval --backend space --task all --limit 10`. The anonymous Space quota was
-   exhausted from the cloud container, so a token is required. Free accounts get limited ZeroGPU
-   minutes per day.
-3. **Check the questions before paying for GPU time.** Look at the Space answers. If accuracy on
-   lean, crossarm or vegetation is poor, iterate on the wording in `src/polehealth/questions.py`
-   (the only place prompts live) against the Space, which is free. Ignore Space latency.
-4. **Measured run on RunPod** (follow `scripts/gpu/RUNBOOK.md`): rent the pod, `bash
-   scripts/gpu/setup.sh` (downloads about 54 GB, starts the official Maincode server, runs a smoke
-   test), clone this repo on the pod, run `polehealth eval --backend http --task all` and
-   `polehealth demo-data --backend http --inspect 300` on the pod itself, then `polehealth cost`.
-   Copy `runs/` and `demo/data/` back, then **stop and terminate the pod**. Expected compute is a
-   few AUD; the top-up is the bigger cost.
-   - If `setup.sh` fails at model load, that is the NVIDIA risk (Maincode only validated on AMD
-     MI355X). Stop the pod before debugging. Fallback: run the eval through the Space and present
-     accuracy only, with no speed claims.
-5. **Film the demo** while you have real data: `uv run polehealth serve`, open
-   `http://127.0.0.1:8000/?autoplay=1&mode=ramp`, screen-record at 1920x1080. For the live "Try a
-   photo" moment, keep the pod up and tunnel the server (RUNBOOK has the SSH tunnel steps).
-6. **Fill the README results** from `runs/<dir>/eval_summary.json` only, commit `demo/data/` (keep
-   the photo subset small; at max edge 960 each photo is about 130 KB), then brand-review README
-   and the demo copy with `beyond-data-brand-voice`.
-7. **Before going public:** resolve the Kaggle licence question (below), get Will's approval, flip
-   the repo to public.
-8. **Content:** carousel and LinkedIn brief go through Will's content-engine repo (Beyond Data
+1. Done 2026-10-08: local setup, first Space answers (the free ZeroGPU quota ran out after 8 calls),
+   measured RunPod run, demo data, first demo video. Notes from that run:
+   - `torch==2.14.0` has no cu128 build, so `setup.sh` now defaults to cu126.
+   - The record question now uses the wrc50 inspection scale (5 = minor defects); with the shared
+     photo scale ("as new" at the top) every answer landed one level low.
+   - To re-run: same runbook. The weights download took about 2 minutes on RunPod.
+2. Done 2026-10-08: README results filled from the recorded run, Beyond Data brand applied to the
+   demo page, final videos recorded, Kaggle licence decided (publish and disclose), and the repo
+   published with Will's approval. To view the demo on real data, regenerate `demo/data/` (see
+   README), then `uv run python -m http.server 8000 -d demo` and open
+   `http://127.0.0.1:8000/?autoplay=1&mode=ramp`.
+3. **Content:** carousel and LinkedIn brief go through Will's content-engine repo (Beyond Data
    brand), drafts only. Will posts.
 
 ## Open questions and risks
 
-- **NVIDIA is untested by Maincode.** The runtime needs `flash-linear-attention` (Triton based,
-  should work on CUDA) and pins transformers 5.17.0 and torch 2.14.0. The config file mentions a
-  96 GB RTX PRO 6000, which suggests NVIDIA was at least considered.
-- **The prompts have never met the real model.** Step 3 exists for this.
-- **Kaggle licence is not stated** on the utilityanalytics datasets. Raw workbooks are never
-  committed and `data/register.json` is gitignored, but published `demo/data/poles.json` will carry
-  derived records. Options: ask the uploader, or accept the risk for a non-commercial demo. Will's call.
+- **NVIDIA is untested by Maincode**, but the runtime ran cleanly on an A100 on 2026-10-08 with
+  `flash-linear-attention`, transformers 5.17.0 and torch 2.14.0 (cu126).
+- **Kaggle licence is not stated** on the utilityanalytics datasets. Will decided on 2026-10-08 to
+  publish and disclose: raw workbooks, `data/register.json` and `demo/data/` are never committed,
+  and DATA_SOURCES.md states the licence is unknown and the use is non-commercial.
 - **Photos are Indian concrete poles; Toowoomba is mostly timber.** Stated everywhere. Lean,
   crossarm and vegetation look the same on any pole; rot and woodpecker damage are not covered by
   labelled photos.
@@ -90,8 +82,8 @@ Official runtime is in the model repo under `runtime/maincode_jev_serve` and ser
 `POST /v1/systemone` (request and response shapes are in `docs/spec.md`). Images: up to 4 per
 request, base64 data URLs (png, jpeg, webp), 8 MB and 16 MP limits. Question types: choice (1 to
 255 options), noul (yes/no), score (2 to 10 ordered levels). Tested by Maincode on AMD MI355X with
-Python 3.12, transformers 5.17.0, torch 2.14.0. Context limits auto-size to GPU memory (80 GB gets
-32k tokens).
+Python 3.12, transformers 5.17.0, torch 2.14.0. Context limits auto-size to GPU memory: on a RunPod
+A100-SXM4-80GB the server reported `max_context_tokens` 8192 (2026-10-08).
 
 **Matilda Jev Space** (`hugging-apps/matilda-jev`, Gradio on ZeroGPU): endpoint
 `/decide_request` takes the exact `/v1/systemone` JSON as a string and returns the same response

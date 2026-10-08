@@ -3,6 +3,7 @@ import copy
 import pytest
 
 from polehealth import questions as q
+from polehealth.evaluate import TASK_LABELS
 
 
 def test_v1_request_is_valid(jpeg_url):
@@ -44,6 +45,12 @@ def test_record_request_is_text_only_and_valid():
     body = q.record_request({"age_years": 40, "shell_thickness": [0.9, 0.9, 0.9]})
     assert body["images"] == []
     assert q.validate_request(body) == []
+
+
+def test_record_rubric_lines_up_with_the_graded_health_index():
+    # evaluate grades score index i as Health Index i + 1, so the rubric must run 1 to 5 in order.
+    levels = q.record_questions()["health"]["criteria"]
+    assert [level.split(":")[0] for level in levels] == list(TASK_LABELS["record_health_index"])
 
 
 def test_validator_rejects_what_the_server_rejects(jpeg_url):

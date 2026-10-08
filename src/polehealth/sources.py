@@ -32,7 +32,9 @@ VEGETATION_DIR = "vegetation_conductor"
 LEAN_SPLITS = ("test", "val")
 SOURCE_KEYS = ("pd_lean", "pd_crossarm", "pd_vegetation", "wrc50", "wrc45", "osm")
 
-LEAN_LABELS = {"Leaned": "leaning", "Straight": "straight", "Rejected": "cannot_assess"}
+# PD-Defect's "Rejected" folder holds unusable photos (blurred, blocked, pole too far away), so it is left out.
+# The model can still answer cannot_assess at run time; that routes the pole to an engineer.
+LEAN_LABELS = {"Leaned": "leaning", "Straight": "straight"}
 VEGETATION_LABELS = {"Risky": "encroaching", "Safe": "clear"}
 
 Log = Callable[[str], None]

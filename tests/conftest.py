@@ -9,7 +9,7 @@ from PIL import Image
 
 from polehealth import images
 from polehealth.register import build_register, load_wrc
-from polehealth.sources import CROSSARM_DIR, LEAN_DIR, LEAN_LABELS, VEGETATION_DIR
+from polehealth.sources import CROSSARM_DIR, LEAN_DIR, VEGETATION_DIR
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -66,7 +66,7 @@ def raw_dir(tmp_path: Path) -> Path:
     n = 0
     for split in ("test", "val"):
         rows = ["image_id,label"]
-        for label in LEAN_LABELS:
+        for label in ("Leaned", "Straight", "Rejected"):
             for _ in range(3):
                 n += 1
                 make_jpeg(hf / LEAN_DIR / split / label / f"{n}.jpg", (n * 5 % 255, 60, 90))

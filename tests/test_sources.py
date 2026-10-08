@@ -14,9 +14,10 @@ def test_crossarm_classes_and_image_label(raw_dir):
 
 def test_sample_discovery_maps_labels(raw_dir):
     lean = sources.lean_samples(raw_dir)
-    assert len(lean) == 18
-    assert {s.label for s in lean} == {"straight", "leaning", "cannot_assess"}
-    assert {s.native_label for s in lean} == {"Straight", "Leaned", "Rejected"}
+    # Rejected photos (unusable: blurred, blocked, pole too far away) are on disk but excluded.
+    assert len(lean) == 12
+    assert {s.label for s in lean} == {"straight", "leaning"}
+    assert {s.native_label for s in lean} == {"Straight", "Leaned"}
     assert lean[0].id.startswith("pd_lean_test_")
     cross = sources.crossarm_samples(raw_dir)
     assert len(cross) == 6 and {s.label for s in cross} == {"straight", "tilted"}
