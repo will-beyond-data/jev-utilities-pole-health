@@ -241,7 +241,8 @@ development only and only logs a console warning.
    REVIEW) with probability, safety risk and measured "Photo read: N ms, Decision: N ms" (from
    model_ms, else latency_ms, else nothing); mini-map dot turns its colour. Modes: Explain (about
    4 to 5 s per pole, chip "Slowed down so you can see it. Real time per pole: N ms"), Real speed
-   (actual model_ms), Ramp (3 poles Explain, then accelerate; default for capture). Keys: space,
+   (actual model_ms per pass, then a 0.6 s on-screen pause on each decision; the poles per second
+   counter is 1000 / median model_ms), Ramp (3 poles Explain, then accelerate; default for capture). Keys: space,
    right arrow, R, 1/2/3. URL params `?autoplay=1&mode=ramp`. Cursor hides while playing. Order:
    clearest replace (highest leaning probability), clearest defer (highest straight probability),
    lowest-confidence engineer case, then decisions.json order.

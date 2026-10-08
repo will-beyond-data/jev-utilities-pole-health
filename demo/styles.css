@@ -520,7 +520,6 @@ details.tview summary { cursor: pointer; color: var(--accent); font-weight: 500;
 .out-card h3 em { font-style: normal; text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 13px; color: var(--text); }
 .out-card .wait { color: var(--text-3); font-size: 13px; }
 .out-card.slide { animation: cardin var(--anim) cubic-bezier(.2, .7, .2, 1); }
-.out-card.stale > * { opacity: .3; transition: opacity 120ms; }
 @keyframes cardin { from { transform: translateX(26px); opacity: 0; } to { transform: none; opacity: 1; } }
 .v1cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .v1cols .bar { grid-template-columns: minmax(62px, 86px) minmax(0, 1fr) 38px; gap: 6px; }
