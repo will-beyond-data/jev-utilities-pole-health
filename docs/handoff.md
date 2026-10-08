@@ -13,7 +13,7 @@ terminated, and a first demo video exists. The first version was built by a clou
 | Demo page (`demo/`) | Live inspection (hero view, Explain / Real speed / Ramp pacing, `?autoplay=1&mode=real`), Map, Flip, Engineer queue and Accuracy views, plus "Try a photo" when served by `polehealth serve`. Beyond Data brand applied 2026-10-08 (brand guidelines, April 2026). Checked on real data in Chromium at 1920x1080, light and dark. |
 | Local server (`polehealth serve`) | Built and tested with the mock backend. Not yet used against the real model. |
 | GPU runbook (`scripts/gpu/`) | Proven on RunPod, 2026-10-08: setup took about 10 minutes, model ready 90 s after start. |
-| Real model output | Recorded run `runs/20261008T120934Z-http` (A100-SXM4-80GB, RunPod Secure Cloud, USD 1.59/hr): lean 82.9% (n 474), crossarm 68.1% (n 257), vegetation 70.2% (n 457), record health 69.0% (n 500); median model time 547 ms per lean photo pass, mean 1,096 ms per demo pole (photo read + decision); USD 0.48 per 1,000 poles. `demo/data/` holds 400 real decisions (130 to the engineer queue). Both are gitignored or uncommitted, see next steps. |
+| Real model output | Recorded run `runs/20261008T120934Z-http` (A100-SXM4-80GB, RunPod Secure Cloud, USD 1.59/hr): lean 82.9% (n 474), crossarm 68.1% (n 257), vegetation 70.2% (n 457), record health 69.0% (n 500); median model time 547 ms per lean photo pass, mean 1,096 ms per demo pole (photo read + decision); USD 0.48 per 1,000 poles. The run summary (`eval_summary.json`, `run.json`) is committed; the raw `results.jsonl` is not. `demo/data/` holds 400 real decisions (130 to the engineer queue) and stays gitignored. |
 | Spend | One pod, 42 minutes at USD 1.59/hr, about USD 1.11 (AUD 1.70) plus disk. Terminated; no pods left. |
 | Demo video | Final cuts (Will's order: map 10 s, live inspection at real speed 20 s, engineer queue 15 s): `runs/20261008T120934Z-http/pole-health-demo-16x9.mp4` (YouTube, watermark bottom right) and `pole-health-demo-linkedin-4x5.mp4` (LinkedIn feed, headline and stats bands), not committed. A 720p copy and a poster frame are committed in `docs/media/` for the README. Recorded headless with a scripted Chromium screencast and ffmpeg. |
 | README | Results filled from the recorded run, brand-reviewed. |
@@ -51,25 +51,21 @@ terminated, and a first demo video exists. The first version was built by a clou
    - The record question now uses the wrc50 inspection scale (5 = minor defects); with the shared
      photo scale ("as new" at the top) every answer landed one level low.
    - To re-run: same runbook. The weights download took about 2 minutes on RunPod.
-2. **Will reviews the video** and the demo on real data: `uv run python -m http.server 8000 -d demo`,
-   then open `http://127.0.0.1:8000/?autoplay=1&mode=ramp`.
-3. **Fill the README results** from `runs/<dir>/eval_summary.json` only, commit `demo/data/` (keep
-   the photo subset small; at max edge 960 each photo is about 130 KB), then brand-review README
-   and the demo copy with `beyond-data-brand-voice`.
-4. **Before going public:** resolve the Kaggle licence question (below), get Will's approval, flip
-   the repo to public.
-5. **Content:** carousel and LinkedIn brief go through Will's content-engine repo (Beyond Data
+2. Done 2026-10-08: README results filled from the recorded run, Beyond Data brand applied to the
+   demo page, final videos recorded, Kaggle licence decided (publish and disclose), and the repo
+   published with Will's approval. To view the demo on real data, regenerate `demo/data/` (see
+   README), then `uv run python -m http.server 8000 -d demo` and open
+   `http://127.0.0.1:8000/?autoplay=1&mode=ramp`.
+3. **Content:** carousel and LinkedIn brief go through Will's content-engine repo (Beyond Data
    brand), drafts only. Will posts.
 
 ## Open questions and risks
 
-- **NVIDIA is untested by Maincode.** The runtime needs `flash-linear-attention` (Triton based,
-  should work on CUDA) and pins transformers 5.17.0 and torch 2.14.0. The config file mentions a
-  96 GB RTX PRO 6000, which suggests NVIDIA was at least considered.
-- **The prompts have never met the real model.** Step 3 exists for this.
-- **Kaggle licence is not stated** on the utilityanalytics datasets. Raw workbooks are never
-  committed and `data/register.json` is gitignored, but published `demo/data/poles.json` will carry
-  derived records. Options: ask the uploader, or accept the risk for a non-commercial demo. Will's call.
+- **NVIDIA is untested by Maincode**, but the runtime ran cleanly on an A100 on 2026-10-08 with
+  `flash-linear-attention`, transformers 5.17.0 and torch 2.14.0 (cu126).
+- **Kaggle licence is not stated** on the utilityanalytics datasets. Will decided on 2026-10-08 to
+  publish and disclose: raw workbooks, `data/register.json` and `demo/data/` are never committed,
+  and DATA_SOURCES.md states the licence is unknown and the use is non-commercial.
 - **Photos are Indian concrete poles; Toowoomba is mostly timber.** Stated everywhere. Lean,
   crossarm and vegetation look the same on any pole; rot and woodpecker damage are not covered by
   labelled photos.

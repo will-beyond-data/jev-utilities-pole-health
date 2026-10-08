@@ -78,9 +78,9 @@ Reference runtime source (do not vendor, read only): `../mj/runtime/maincode_jev
 
 | Key | Source | Licence | Committed to repo? |
 |---|---|---|---|
-| `pd_lean` | EPDCL/pd-defect `pole_lean_assessment/classification/{test,val}` (Leaned / Straight; Rejected is excluded as unusable photos) | CC-BY-4.0 | Resized demo subset yes (max edge 960) |
-| `pd_crossarm` | EPDCL/pd-defect `crossarm_top_cleat_tilt_assessment/object_detection/test` (YOLO boxes, classes in data.yaml) | CC-BY-4.0 | Resized demo subset yes |
-| `pd_vegetation` | EPDCL/pd-defect `vegetation_conductor` validation images + `GT_ValidationSet.csv` (Risky / Safe) | CC-BY-4.0 | Resized demo subset yes |
+| `pd_lean` | EPDCL/pd-defect `pole_lean_assessment/classification/{test,val}` (Leaned / Straight; Rejected is excluded as unusable photos) | CC-BY-4.0 | No. `polehealth demo-data` writes resized copies (max edge 960) to the gitignored `demo/data/` |
+| `pd_crossarm` | EPDCL/pd-defect `crossarm_top_cleat_tilt_assessment/object_detection/test` (YOLO boxes, classes in data.yaml) | CC-BY-4.0 | No, same as above |
+| `pd_vegetation` | EPDCL/pd-defect `vegetation_conductor` validation images + `GT_ValidationSet.csv` (Risky / Safe) | CC-BY-4.0 | No, same as above |
 | `osm_toowoomba` | OpenStreetMap `node[power=pole]` in bbox (-27.62,151.88,-27.50,152.02), ~1,191 poles | ODbL, "© OpenStreetMap contributors" | Yes (derived positions, ODbL notice) |
 | `wrc50` | Kaggle utilityanalytics/western-red-cedar-50ft-pole: 4,800 poles x inspections 1999/2009/2019; columns ID, Age, ST1, ST2, ST3, Surface conditions, GL, Wood pecker holes, Carrying transformer, Health Index (2019 sheet only, 1-5) | Unknown | No. Downloaded at build time |
 | `wrc45` | Kaggle utilityanalytics/utility-power-pole-condition-dataset1: 3,000 poles x 1998/2008/2018, same columns, 2018 has Health Index | Unknown | No |
